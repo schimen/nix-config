@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 let
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
+  commonUserPackages = import ./packages/common-user-packages.nix pkgs;
 in
 {
   imports = [
@@ -8,40 +9,7 @@ in
   ];
 
   home-manager.users.simen = {
-    # User packages 
-    home.packages = with pkgs; [ 
-      # Tools
-      transmission-gtk
-      qalculate-gtk
-      direnv
-      cutecom
-      gnuradio
-      texlive.combined.scheme-full
-      gummi
-      arduino
-
-      # Apps
-      firefox
-      vlc
-      discord
-      teams
-      slack
-      obsidian
-      libreoffice
-      gimp
-      thunderbird
-      zoom-us
-      spotify
-      kicad
-      freecad
-      minecraft
-      cura
-      drawio
-      musescore
-      (callPackage ./geogebra {})   # geogebra 6
-      (callPackage ./nrfconnect {}) # nRF Connect
-      (callPackage ./notion {})     # Notion
-    ];
+    home.packages = commonUserPackages; # User packages 
     programs= {
       home-manager.enable = true;
       git = {
