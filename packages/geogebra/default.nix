@@ -1,7 +1,7 @@
 { lib, stdenv, unzip, fetchurl, electron_12, makeWrapper, makeDesktopItem }:
 let
   pname = "geogebra";
-  version = "6-0-670-0";
+  version = "6-0-676-0";
 
   srcIcon = fetchurl {
     url = "http://static.geogebra.org/images/geogebra-logo.svg";
@@ -39,7 +39,7 @@ in
       urls = [
       "https://download.geogebra.org/installers/6.0/GeoGebra-Linux64-Portable-${version}.zip"
       ];
-      sha256 = "1kbz6rizlgjj88gbrxi93j4kccd1lc13ddjp8fq3xak4awky9sxw";
+      sha256 = "0wn90n2nd476rkf83gk9vvcpbjflkrvyri50pnmv52j76n023hmm";
     };
 
     dontConfigure = true;

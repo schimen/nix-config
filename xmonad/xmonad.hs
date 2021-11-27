@@ -17,7 +17,7 @@ main = do
         , focusedBorderColor = myFocusedBorderColor
 	, layoutHook         = smartSpacingWithEdge 4 $ smartBorders $ layoutHook xfceConfig
         , keys               = myKeys        <+> keys desktopConfig
-	--, startupHook        = myStartupHook <+> startupHook xfceConfig
+	, startupHook        = myStartupHook <+> startupHook xfceConfig
         , manageHook         = manageSpawn   <+> manageHook  xfceConfig
 	}
 
@@ -45,6 +45,16 @@ myFocusedBorderColor = "#BD93F9"
 
 -- startup applications
 myStartupHook = do 
+         spawn "xfsettingsd"
+	 spawn "xfce4-panel"
+	 spawn "thunar --daemon"
+	 spawn "blueman-applet"
+	 spawn "nm-applet"
+	 spawn "xfce4-power-manager"
+	 spawn "system-config-printer-applet"
+	 spawn "pulseeffects --gapplication-service"
+	 spawn "light-locker"
+	 spawn "xdg-user-dirs-update"
 	 spawnOn "Main"   "firefox"
 	 spawnOn "Notes"  "obsidian"
 	 spawnOn "Mail"   "thunderbird"

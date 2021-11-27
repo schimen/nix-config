@@ -3,27 +3,26 @@
 let
   unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
   unstable = import unstableTarball { config = config.nixpkgs.config; };
-  nurTarball = fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz";
   commonSystemPackages = import ./packages/common-system-packages.nix pkgs;
   developmentPackages = import ./packages/development-packages.nix pkgs unstable;
 
   wallpaper = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nix-wallpaper-dracula.png";
-    sha256 = "07ly21bhs6cgfl7pv4xlqzdqm44h22frwfhdqyd4gkn2jla1waab";
+    url = "https://i.redd.it/ni1r1agwtrh71.png";
+    sha256 = "00sg8mn6xdiqdsc1679xx0am3zf58fyj1c3l731imaypgmahkxj2";
   };
-in 
+in
 {
   imports =
     [ ./home.nix
       ./xmonad
     ];
-
+  
   boot = {
     plymouth = {
       enable = true;
     };
-    supportedFilesystems = [
-      "ntfs"
+    supportedFilesystems = [                                                                 
+      "ntfs"                                                                                 
     ];
     loader = {
       timeout = 1;
@@ -32,35 +31,43 @@ in
       grub = {
         enable = true;
         version = 2;
+        useOSProber = true;
         efiSupport = true;
-        device = "nodev";
+        devices = [ "nodev" ];
+        # extraEntries = ''
+        #   menuentry "macOS (Clover)" {
+        #     insmod chain
+        #     insmod part_gpt
+        #     insmod search_fs_uuid
+        #     search --fs-uuid --no-floppy --set=root 67E3-17ED
+        #     chainloader /EFI/CLOVER/CLOVERX64.efi
+        #   }
+        # '';
       };
     };
   };
-  
+
   networking = {
-    hostName = "schimen-laptop-nixos"; # Define your hostname.
-    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  
-    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-    # Per-interface useDHCP will be mandatory in the future, so this generated config
+    hostName = "schimen-desktop-nixos"; # Define your hostname.
+    wireless.enable = false;  # no wireless on my desktop :(
+
+    # The global useDHCP flag is deprecated, therefore explicitly set to false here.         
+    # Per-interface useDHCP will be mandatory in the future, so this generated config        
     # replicates the default behaviour.
     useDHCP = false;
-    #interfaces.enp0s20f0u1u3.useDHCP = true; # ethernet
-    interfaces.wlp0s20f3.useDHCP = true; # wifi
+    interfaces.eno1.useDHCP = true; # ethernet
     networkmanager = {
       enable = true;
-      #dhcp = "dhclient"; # because of eduroam
       packages = with pkgs; [
         networkmanager-openvpn
         networkmanager-openconnect
       ];
     };
   };
-    
+
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
-  
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
@@ -89,22 +96,17 @@ in
       package = lib.mkForce pkgs.gnome3.gvfs;
     };
 
-    # rule for full control of usb
-    udev.extraRules = ''
-      SUBSYSTEM=="usb", MODE="0666", GROUP="users"
-    '';
-
     xserver.desktopManager.gnome.enable = true;
     xserver.displayManager = {
-      defaultSession = "none+xmonad"; 
+      defaultSession = "none+xmonad";
       startx.enable = false;
       lightdm = {
         enable = true;
-        background = wallpaper;
-        greeters.gtk = {
-          enable = true;
-          theme.name = "Dracula";
-          iconTheme.name = "Papirus-Dark";
+	background = wallpaper;
+	greeters.gtk = {
+	  enable = true;
+	  theme.name = "Dracula";
+	  iconTheme.name = "Papirus-Dark";
         };
       };
     };
@@ -117,11 +119,11 @@ in
     pulseaudio.enable = true;
     bluetooth.enable = true;
   };
-  
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.simen = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "dialout" ];
+    extraGroups = [ "wheel" "networkmanager" ];
   };
 
   qt5 = {
@@ -136,13 +138,11 @@ in
     steam.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    (callPackage ./packages/ideapad-cm {}) # script for conservation mode
-  ] ++ commonSystemPackages ++ developmentPackages;
-
+  environment.systemPackages = commonSystemPackages ++ developmentPackages;
+  
   nixpkgs.config = {
     allowUnfree = true;
-    packageOverrides = pkgs: { unstable = unstable; };
+    packageOverrides = pkgs: { unstable = unstable; }; 
   };
 }
 

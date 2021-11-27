@@ -1,9 +1,9 @@
 { stdenv, fetchurl, lib }:
 
-let
-  repoUrl = "https://raw.githubusercontent.com/tildehacker/ideapad-conservation-mode";
-  commit = "71b4083cfa9b9b2264389de2a77cdf8b208497cd";
-in
+#let
+#  repoUrl = "https://raw.githubusercontent.com/tildehacker/ideapad-conservation-mode";
+#  commit = "71b4083cfa9b9b2264389de2a77cdf8b208497cd";
+#in
 
 stdenv.mkDerivation rec {
   pname = "ideapad-cm";
@@ -19,10 +19,11 @@ stdenv.mkDerivation rec {
       platforms = platforms.all;
       maintainers = [ "schimen" ];
   };
-  src = fetchurl {
-    url = "${repoUrl}/${commit}/ideapad-cm";
-    sha256 = "3abdded5b2ebc7710a92a7ce203267b615fd871c24d0f4149ef1c779dd0b1927";
-  };
+  src = ./ideapad-cm;
+  #src = fetchurl {
+  #  url = "${repoUrl}/${commit}/ideapad-cm";
+  #  sha256 = "3abdded5b2ebc7710a92a7ce203267b615fd871c24d0f4149ef1c779dd0b1927";
+  #};
   phases = "installPhase fixupPhase";
   installPhase = ''
     mkdir -p $out/bin

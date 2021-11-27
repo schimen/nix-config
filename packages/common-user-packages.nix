@@ -6,7 +6,6 @@ pkgs: with pkgs; [
   gnuradio
   texlive.combined.scheme-full
   gummi
-  arduino
 
   # Apps
   firefox
@@ -27,6 +26,5 @@ pkgs: with pkgs; [
   drawio
   musescore
   (callPackage ./geogebra {})   # geogebra 6
-  (callPackage ./nrfconnect {}) # nRF Connect
   (callPackage ./notion {})     # Notion
 ]

@@ -36,6 +36,8 @@ let
   version = "20.1.1.720";
   homepage = "https://fpgasoftware.intel.com";
 
+  source_dir = "/etc/nixos/nix-config/packages/quartus-prime-lite/Quartus-lite-${version}-linux/components";
+
   require = {name, sha256}: requireFile {
     inherit name sha256;
     url = "${homepage}/${lib.versions.majorMinor version}/?edition=lite&platform=linux";
@@ -45,16 +47,23 @@ in stdenv.mkDerivation rec {
   inherit version;
   pname = "quartus-prime-lite-unwrapped";
 
-  src = map require ([{
-    name = "QuartusLiteSetup-${version}-linux.run";
-    sha256 = "0mjp1rg312dipr7q95pb4nf4b8fwvxgflnd1vafi3g9cshbb1c3k";
-  } {
-    name = "ModelSimSetup-${version}-linux.run";
-    sha256 = "1cqgv8x6vqga8s4v19yhmgrr886rb6p7sbx80528df5n4rpr2k4i";
-  }] ++ (map (id: {
-    name = "${id}-${version}.qdz";
-    sha256 = lib.getAttr id componentHashes;
-  }) (lib.attrValues supportedDeviceIds)));
+
+  # Ditched requirefile, just saving install files in same folder instead.
+
+  src = [ "${source_dir}/QuartusLiteSetup-${version}-linux.run"
+          "${source_dir}/ModelSimSetup-${version}-linux.run"
+        ] ++ (map (id: "${source_dir}/${id}-{version}.qdz") (lib.attrValues supportedDeviceIds));
+
+  #src = map require ([{
+  #  name = "QuartusLiteSetup-${version}-linux.run";
+  #  sha256 = "0mjp1rg312dipr7q95pb4nf4b8fwvxgflnd1vafi3g9cshbb1c3k";
+  #} {
+  #  name = "ModelSimSetup-${version}-linux.run";
+  #  sha256 = "1cqgv8x6vqga8s4v19yhmgrr886rb6p7sbx80528df5n4rpr2k4i";
+  #}] ++ (map (id: {
+  #  name = "${id}-${version}.qdz";
+  #  sha256 = lib.getAttr id componentHashes;
+  #}) (lib.attrValues supportedDeviceIds)));
 
   nativeBuildInputs = [ unstick ];
 
@@ -63,11 +72,15 @@ in stdenv.mkDerivation rec {
     components = lib.sublist 2 ((lib.length src) - 2) src;
     copyInstaller = installer: ''
         # `$(cat $NIX_CC/nix-support/dynamic-linker) $src[0]` often segfaults, so cp + patchelf
-        cp ${installer} $TEMP/${installer.name}
-        chmod u+w,+x $TEMP/${installer.name}
-        patchelf --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $TEMP/${installer.name}
+	pwd
+	echo $TEMP/${installer}
+
+        #cp ${installer} $TEMP/${installer}
+	cp ${installer} $TEMP
+        chmod u+w,+x $TEMP/${installer}
+        patchelf --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $TEMP/${installer}
       '';
-    copyComponent = component: "cp ${component} $TEMP/${component.name}";
+    copyComponent = component: "cp ${component} $TEMP/${component}";
     # leaves enabled: quartus, modelsim_ase, devinfo
     disabledComponents = [
       "quartus_help"
@@ -78,7 +91,7 @@ in stdenv.mkDerivation rec {
   in ''
       ${lib.concatMapStringsSep "\n" copyInstaller installers}
       ${lib.concatMapStringsSep "\n" copyComponent components}
-      unstick $TEMP/${(builtins.head installers).name} \
+      unstick $TEMP/${(builtins.head installers)} \
         --disable-components ${lib.concatStringsSep "," disabledComponents} \
         --mode unattended --installdir $out --accept_eula 1
       rm -r $out/uninstall $out/logs
@@ -90,6 +103,6 @@ in stdenv.mkDerivation rec {
     #license = licenses.unfree;
     platforms = platforms.linux;
     hydraPlatforms = [ ]; # requireFile srcs cannot be fetched by hydra, ignore
-    maintainers = with maintainers; [ kwohlfahrt ];
+    maintainers = with maintainers; [ ];
   };
 }

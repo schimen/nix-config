@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
-  commonUserPackages = import ./packages/common-user-packages.nix pkgs;
+  commonUserPackages  = import ./packages/common-user-packages.nix pkgs;
 in
 {
   imports = [
@@ -10,7 +10,7 @@ in
 
   home-manager.users.simen = {
     home.packages = commonUserPackages; # User packages 
-    programs= {
+    programs = {
       home-manager.enable = true;
       git = {
         enable = true;
@@ -26,6 +26,17 @@ in
 	bashrcExtra = ''
 	  eval "$(direnv hook bash)"
 	'';
+      };
+    };
+    gtk = {
+      enable = true;
+      iconTheme = with pkgs; {
+        package = papirus-icon-theme;
+	name = "Papirus-Dark";
+      };
+      theme = with pkgs; {
+        package = dracula-theme;
+	name = "Dracula";
       };
     };
   };
