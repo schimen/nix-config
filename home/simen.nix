@@ -1,15 +1,20 @@
 { config, pkgs, ... }:
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
-  commonUserPackages  = import ./packages/common-user-packages.nix pkgs;
+  commonUserPackages  = import ../packages/common-user-packages.nix pkgs;
 in
 {
   imports = [
-    (import "${home-manager}/nixos")
+    (import ../xsession pkgs)
   ];
+
+  users.users.simen = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "dialout" ];
+  };
 
   home-manager.users.simen = {
     home.packages = commonUserPackages; # User packages 
+    home.keyboard.layout = "no";
     programs = {
       home-manager.enable = true;
       git = {
@@ -38,6 +43,6 @@ in
         package = dracula-theme;
 	name = "Dracula";
       };
-    };
+    }; 
   };
 }

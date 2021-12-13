@@ -1,0 +1,8 @@
+#!/bin/sh
+cm_status=$(ideapad-cm status 2> /dev/null)
+if [ "$cm_status" = "Battery conservation mode is currently enabled." ]; then
+  echo "" 
+else
+  echo ""
+fi
+

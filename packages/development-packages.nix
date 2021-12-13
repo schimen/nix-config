@@ -18,8 +18,11 @@ pkgs: unstable: with pkgs; [
   ]))
 
   # Haskell
-  ghc
-
+  (ghc.withPackages(hp: with hp; [
+    JuicyPixels
+    random
+    vector-algorithms
+  ]))
 
   # Tools
   neovim

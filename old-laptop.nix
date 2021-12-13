@@ -6,7 +6,6 @@ let
   unstable = import unstableTarball { config = config.nixpkgs.config; };
   nurTarball = fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz";
   commonSystemPackages = import ./packages/common-system-packages.nix pkgs;
-  developmentPackages = import ./packages/development-packages.nix pkgs unstable;
 
   wallpaper_nixos = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nix-wallpaper-dracula.png";
@@ -21,6 +20,7 @@ in
   imports =
     [ "${home-manager}/nixos"
       ./home/simen.nix
+      ./home/jamila.nix
     ];
 
   boot = {
@@ -44,18 +44,17 @@ in
   };
   
   networking = {
-    hostName = "schimen-laptop-nixos"; # Define your hostname.
+    hostName = "schimen-old-nixos"; # Define your hostname.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
     useDHCP = false;
-    #interfaces.enp0s20f0u1u3.useDHCP = true; # ethernet
-    interfaces.wlp0s20f3.useDHCP = true; # wifi
+    interfaces.enp0s25.useDHCP = true; # ethernet
+    interfaces.wlp4s0.useDHCP  = true; # wifi
     networkmanager = {
       enable = true;
-      dhcp = "dhclient"; # because of eduroam
       packages = with pkgs; [
         networkmanager-openvpn
         networkmanager-openconnect
@@ -81,12 +80,6 @@ in
     # Enable mDNS
     avahi.enable = true;
     avahi.nssmdns = true;
-    
-    # Enable onedrive
-    onedrive.enable = true;
-
-    # Enable blueman
-    blueman.enable = true;   
 
     # Enable full gvfs support
     gvfs = {
@@ -94,15 +87,9 @@ in
       package = lib.mkForce pkgs.gnome.gvfs;
     };
 
-    # rule for full control of usb
-    udev.extraRules = ''
-      SUBSYSTEM=="usb", MODE="0666", GROUP="users"
-    '';
-
     xserver.layout = "no";
-    xserver.desktopManager.xterm.enable = false;
     xserver.displayManager = {
-      defaultSession = "none+xmonad"; 
+      defaultSession = "gnome"; 
       startx.enable = false;
       lightdm = {
         enable = true;
@@ -119,25 +106,17 @@ in
   # Enable sound.
   sound.enable = true;
 
-  hardware = {
-    pulseaudio.enable = true;
-    bluetooth.enable = true;
-  };
-  
+  hardware.pulseaudio.enable = true;
+ 
   qt5 = {
     enable = true;
     platformTheme = "gtk2";
     style = "gtk2";
   };
 
-  programs = {
-    tmux.enable = true;
-    steam.enable = true;
-  };
+  programs.tmux.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    (callPackage ./packages/ideapad-cm {}) # script for conservation mode
-  ] ++ commonSystemPackages ++ developmentPackages;
+  environment.systemPackages = commonSystemPackages;
 
   nixpkgs.config = {
     allowUnfree = true;

@@ -5,6 +5,7 @@ import XMonad.Config.Xfce       (xfceConfig)
 import XMonad.Layout.Fullscreen (fullscreenSupport)
 import XMonad.Layout.NoBorders  (smartBorders)
 import XMonad.Layout.Spacing    (smartSpacingWithEdge)
+import XMonad.Actions.Volume    (lowerVolume, raiseVolume, toggleMute)
 
 import qualified Data.Map as M
 
@@ -17,17 +18,30 @@ main = do
         , focusedBorderColor = myFocusedBorderColor
 	, layoutHook         = smartSpacingWithEdge 4 $ smartBorders $ layoutHook xfceConfig
         , keys               = myKeys        <+> keys desktopConfig
-	, startupHook        = myStartupHook <+> startupHook xfceConfig
+	--, startupHook        = myStartupHook <+> startupHook xfceConfig
         , manageHook         = manageSpawn   <+> manageHook  xfceConfig
 	}
 
 -- keys
 myKeys conf@(XConfig {modMask = modm}) = M.fromList $
-    [ ((modm,                     xK_p), spawn "dmenu_run")
-    , ((modm     .|. shiftMask,   xK_p), spawn "xfce4-popup-whiskermenu")
-    , ((modm,                     xK_c), spawn restartXmonad)
-    , ((modm,                     xK_q), kill)
-    , ((mod1Mask .|. controlMask, xK_t), spawn $ XMonad.terminal conf)
+    [ ((modm,                        xK_p  ), spawn "dmenu_run")
+    , ((modm        .|. shiftMask,   xK_p  ), spawn "rofi -show run")
+    , ((modm        .|. shiftMask,   xK_s  ), spawn "xfce4-screenshooter -c -r")
+    , ((modm,                        xK_c  ), spawn restartXmonad)
+    , ((modm,                        xK_q  ), kill)
+    , ((mod1Mask    .|. controlMask, xK_t  ), spawn $ XMonad.terminal conf)
+    , ((mod1Mask    .|. controlMask, xK_f  ), spawn "thunar")
+    , ((mod1Mask    .|. controlMask, xK_l  ), spawn "light-locker-command --lock")
+    , ((controlMask,                 xK_F11), spawn "brightnessctl --device=intel_backlight s 10%-")
+    , ((controlMask,                 xK_F12), spawn "brightnessctl --device=intel_backlight s +10%")
+    , ((controlMask .|. shiftMask,   xK_F11), spawn "brightnessctl --device=intel_backlight s 1%-")
+    , ((controlMask .|. shiftMask,   xK_F12), spawn "brightnessctl --device=intel_backlight s +1%")
+    , ((controlMask,                 xK_F1 ), toggleMute     >> return ())
+    , ((controlMask,                 xK_F2 ), lowerVolume 10 >> return ())
+    , ((controlMask,                 xK_F3 ), raiseVolume 10 >> return ())
+    , ((controlMask .|. shiftMask,   xK_F2 ), lowerVolume 1  >> return ())
+    , ((controlMask .|. shiftMask,   xK_F3 ), raiseVolume 1  >> return ())
+
     ]
 
 -- restart command
@@ -44,6 +58,7 @@ myNormalBorderColor = "#282A36"
 myFocusedBorderColor = "#BD93F9"
 
 -- startup applications
+{-
 myStartupHook = do 
          spawn "xfsettingsd"
 	 spawn "xfce4-panel"
@@ -55,8 +70,8 @@ myStartupHook = do
 	 spawn "pulseeffects --gapplication-service"
 	 spawn "light-locker"
 	 spawn "xdg-user-dirs-update"
-	 spawnOn "Main"   "firefox"
-	 spawnOn "Notes"  "obsidian"
-	 spawnOn "Mail"   "thunderbird"
-         spawnOn "Social" "discord"
-
+	 --spawnOn "Main"   "firefox"
+	 --spawnOn "Notes"  "obsidian"
+	 --spawnOn "Mail"   "thunderbird"
+         --spawnOn "Social" "discord"
+-}

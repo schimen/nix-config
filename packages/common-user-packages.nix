@@ -10,6 +10,7 @@ pkgs: with pkgs; [
   # Apps
   firefox
   vlc
+  gnomecast
   discord
   teams
   slack

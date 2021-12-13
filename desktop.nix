@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
   unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
   unstable = import unstableTarball { config = config.nixpkgs.config; };
   commonSystemPackages = import ./packages/common-system-packages.nix pkgs;
@@ -13,8 +14,9 @@ let
 in
 {
   imports =
-    [ ./home.nix
-      ./xmonad
+    [ "${home-manager}/nixos"
+      ./simen.nix
+      ./jamila.nix
     ];
   
   boot = {
@@ -96,7 +98,6 @@ in
       package = lib.mkForce pkgs.gnome3.gvfs;
     };
 
-    xserver.desktopManager.gnome.enable = true;
     xserver.displayManager = {
       defaultSession = "none+xmonad";
       startx.enable = false;
@@ -118,12 +119,6 @@ in
   hardware = {
     pulseaudio.enable = true;
     bluetooth.enable = true;
-  };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.simen = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
   };
 
   qt5 = {

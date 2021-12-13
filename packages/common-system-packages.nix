@@ -1,5 +1,6 @@
 pkgs: with pkgs; [
   # Tools
+  xfce.xfce4-terminal
   vim
   nomacs
   mupdf
