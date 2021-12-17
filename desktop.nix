@@ -15,8 +15,8 @@ in
 {
   imports =
     [ "${home-manager}/nixos"
-      ./simen.nix
-      ./jamila.nix
+      ./home/simen.nix
+      ./home/jamila.nix
     ];
   
   boot = {
