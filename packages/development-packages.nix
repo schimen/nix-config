@@ -22,6 +22,8 @@ pkgs: unstable: with pkgs; [
     JuicyPixels
     random
     vector-algorithms
+    xmonad
+    xmonad-extras
   ]))
 
   # Tools
