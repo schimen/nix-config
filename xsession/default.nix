@@ -33,26 +33,27 @@ in
     gtk2
     gtk3
     gtk4
+    dracula-theme
+    papirus-icon-theme
 
     libnotify
+    xdg-user-dirs
     lightlocker
+    rofi
     pavucontrol
     pulseeffects-legacy
     networkmanagerapplet    
 
-    papirus-icon-theme
-    dracula-theme
-
-    xdg-user-dirs
-    xfconf
-    xfce4-terminal
-    xfce4-taskmanager
-    xfce4-settings
-    xfce4-screenshooter
-    xfce4-power-manager
+    # xfce
     (thunar.override { thunarPlugins = myThunarPlugins; })
-    rofi
+    xfce4-power-manager
+    xfce4-screenshooter
+    xfce4-settings
+    xfce4-taskmanager
+    xfce4-terminal
+    xfconf
 
+    # polybar stuff
     playerctl
     (callPackage ../packages/ideapad-cm {})
     (callPackage ./polybar/polybar-scripts.nix {})
@@ -169,6 +170,7 @@ in
     xsession = {    
       enable = true;
       initExtra = with pkgs; ''
+        ${xfce.xfce4-settings}/bin/xfsettingsd --replace --disable-wm-check --daemon &
         ${picom}/bin/picom &
         ${myPolybar}/bin/polybar top  &
         ${dunst}/bin/dunst &
