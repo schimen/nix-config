@@ -23,7 +23,6 @@ main = do
         , layoutHook         = myLayoutHook
         , keys               = myKeys      <+> keys        desktopConfig
         , manageHook         = manageSpawn <+> manageHook  xfceConfig
-        --, startupHook        = myStartupHook <+> startupHook xfceConfig
     }
 
 myLayoutHook = spacingRaw True             -- smartBorder  enabled
@@ -37,10 +36,12 @@ myLayoutHook = spacingRaw True             -- smartBorder  enabled
 -- keys
 myKeys conf@XConfig {modMask = modm} = M.fromList $
     [ ((modm,                        xK_q  ), kill                        )
+    , ((modm,                        xK_r  ), spawn restartXmonad         )
     , ((modm,                        xK_p  ), spawn dmenuCommand          )
-    , ((modm        .|. shiftMask,   xK_p  ), spawn rofiCommand           )
+    , ((modm,                        xK_c  ), spawn rofiCalc              )
+    , ((modm,                        xK_w  ), spawn rofiWindow            )
+    , ((modm        .|. shiftMask,   xK_p  ), spawn rofiDrun              )
     , ((modm        .|. shiftMask,   xK_s  ), spawn screenshotCommand     )
-    , ((modm,                        xK_c  ), spawn restartXmonad         )
     , ((mod1Mask    .|. controlMask, xK_t  ), spawn $ XMonad.terminal conf)
     , ((mod1Mask    .|. controlMask, xK_f  ), spawn fileManager           )
     , ((mod1Mask    .|. controlMask, xK_l  ), spawn lockScreenCommand     )
@@ -62,7 +63,9 @@ physicalScreensKeys modm =
     ]
 
 dmenuCommand        = "dmenu_run"
-rofiCommand         = "rofi -show run"
+rofiDrun            = "rofi -show drun"
+rofiWindow          = "rofi -show window"
+rofiCalc            = "rofi -show calc"
 screenshotCommand   = "xfce4-screenshooter -c -r "
 restartXmonad       = "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi"
 fileManager         = "thunar"
@@ -81,22 +84,3 @@ myTerminal = "xfce4-terminal"
 -- colors
 myNormalBorderColor = "#282A36"
 myFocusedBorderColor = "#BD93F9"
-
--- startup applications
-{-
-myStartupHook = do 
-         spawn "xfsettingsd"
-	 spawn "xfce4-panel"
-	 spawn "thunar --daemon"
-	 spawn "blueman-applet"
-	 spawn "nm-applet"
-	 spawn "xfce4-power-manager"
-	 spawn "system-config-printer-applet"
-	 spawn "pulseeffects --gapplication-service"
-	 spawn "light-locker"
-	 spawn "xdg-user-dirs-update"
-	 --spawnOn "Main"   "firefox"
-	 --spawnOn "Notes"  "obsidian"
-	 --spawnOn "Mail"   "thunderbird"
-         --spawnOn "Social" "discord"
--}
