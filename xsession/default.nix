@@ -39,7 +39,6 @@ in
     libnotify
     xdg-user-dirs
     lightlocker
-    rofi
     pavucontrol
     pulseeffects-legacy
     networkmanagerapplet    
@@ -121,6 +120,13 @@ in
   ];
 
   home-manager.users.simen = {
+    programs = {
+      rofi = {
+        enable = true;
+        package = with pkgs; rofi.override { plugins = [ rofi-calc ]; };
+        extraConfig = { modi = "drun,calc,window"; };
+      };
+    };
     services = {
       polybar = {
         enable = true;
@@ -154,7 +160,7 @@ in
       picom = {
         enable = true;
         blur = true;
-	blurExclude = [ "'class_g' = 'xfce4-screenshooter'" ];
+	      blurExclude = [ "'class_g' = 'xfce4-screenshooter'" ];
         activeOpacity = "1.0";
         inactiveOpacity = "0.8";
         backend = "glx";
