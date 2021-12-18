@@ -41,7 +41,15 @@ in
     lightlocker
     pavucontrol
     pulseeffects-legacy
-    networkmanagerapplet    
+    networkmanagerapplet
+    dmenu
+    wmname
+    brightnessctl
+    nomacs
+    mupdf
+    gnome.gnome-disk-utility
+    gnome.file-roller
+    system-config-printer
 
     # xfce
     (thunar.override { thunarPlugins = myThunarPlugins; })
@@ -140,16 +148,16 @@ in
         iconTheme = with pkgs; {
           name = "Papirus-Dark";
           package = papirus-icon-theme;
-          #size = "16x16";
+          size = "16x16";
         };
         settings.global = {
-          #shrink = "yes";
+          shrink = "yes";
           transparency = 10;
-          #padding = 16;
-          #horizontal_padding = 16;
-          #font = "JetBrainsMono Nerd Font 10";
-          #line_height = 4;
-          #format = ''<b>%s</b>\n%b'';
+          padding = 16;
+          horizontal_padding = 16;
+          font = "JetBrainsMono Nerd Font 10";
+          line_height = 4;
+          format = ''<b>%s</b>\n%b'';
         };
       };
       screen-locker = {

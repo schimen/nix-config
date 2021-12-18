@@ -4,7 +4,8 @@ let
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
   unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
   unstable = import unstableTarball { config = config.nixpkgs.config; };
-  commonSystemPackages = import ./packages/common-system-packages.nix pkgs;
+  basicPackages = import ./packages/basic-packages.nix pkgs;
+  myApps = import ./packages/my-apps.nix pkgs;
   developmentPackages = import ./packages/development-packages.nix pkgs unstable;
 
   wallpaper = pkgs.fetchurl {
@@ -97,17 +98,17 @@ in
       enable = true;
       package = lib.mkForce pkgs.gnome3.gvfs;
     };
-
+    xserver.desktopManager.xterm.enable = false;
     xserver.displayManager = {
       defaultSession = "none+xmonad";
       startx.enable = false;
       lightdm = {
         enable = true;
-	background = wallpaper;
-	greeters.gtk = {
-	  enable = true;
-	  theme.name = "Dracula";
-	  iconTheme.name = "Papirus-Dark";
+	      background = wallpaper;
+	      greeters.gtk = {
+	        enable = true;
+	        theme.name = "Dracula";
+	        iconTheme.name = "Papirus-Dark";
         };
       };
     };
@@ -133,7 +134,7 @@ in
     steam.enable = true;
   };
 
-  environment.systemPackages = commonSystemPackages ++ developmentPackages;
+  environment.systemPackages = basicPackages ++ myApps ++ developmentPackages;
   
   nixpkgs.config = {
     allowUnfree = true;

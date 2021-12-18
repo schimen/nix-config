@@ -27,9 +27,7 @@ pkgs: unstable: with pkgs; [
   ]))
 
   # Tools
-  neovim
   vscodium
-  unzip
   direnv
 
   # Embedded

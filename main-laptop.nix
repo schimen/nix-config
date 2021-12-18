@@ -5,14 +5,11 @@ let
   unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
   unstable = import unstableTarball { config = config.nixpkgs.config; };
   nurTarball = fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz";
-  commonSystemPackages = import ./packages/common-system-packages.nix pkgs;
+  basicPackages = import ./packages/basic-packages.nix pkgs;
+  myApps = import ./packages/my-apps.nix pkgs;
   developmentPackages = import ./packages/development-packages.nix pkgs unstable;
 
-  wallpaper_nixos = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nix-wallpaper-dracula.png";
-    sha256 = "07ly21bhs6cgfl7pv4xlqzdqm44h22frwfhdqyd4gkn2jla1waab";
-  };
-  wallpaper_cowboy = pkgs.fetchurl {
+  wallpaper = pkgs.fetchurl {
     url = "https://i.redd.it/ni1r1agwtrh71.png";
     sha256 = "00sg8mn6xdiqdsc1679xx0am3zf58fyj1c3l731imaypgmahkxj2";
   };
@@ -106,7 +103,7 @@ in
       startx.enable = false;
       lightdm = {
         enable = true;
-        background = wallpaper_cowboy;
+        background = wallpaper;
         greeters.gtk = {
           enable = true;
           theme.name = "Dracula";
@@ -137,7 +134,7 @@ in
 
   environment.systemPackages = with pkgs; [
     (callPackage ./packages/ideapad-cm {}) # script for conservation mode
-  ] ++ commonSystemPackages ++ developmentPackages;
+  ] ++ basicPackages ++ myApps ++ developmentPackages;
 
   nixpkgs.config = {
     allowUnfree = true;

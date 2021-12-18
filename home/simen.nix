@@ -13,7 +13,6 @@ in
   };
 
   home-manager.users.simen = {
-    home.packages = commonUserPackages; # User packages 
     home.keyboard.layout = "no";
     programs = {
       home-manager.enable = true;

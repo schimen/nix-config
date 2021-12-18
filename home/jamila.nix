@@ -9,7 +9,6 @@ in
   };
 
   home-manager.users.jamila = {
-    home.packages = commonUserPackages; # User packages 
     home.keyboard.layout = "no";
     programs.home-manager.enable = true;
   };
