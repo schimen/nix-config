@@ -1,0 +1,9 @@
+[global]
+font="JetBrainsMono Nerd Font 10"
+format="<b>%s</b>\n%b"
+horizontal_padding=16
+icon_path=ICON_PATH
+line_height=4
+padding=16
+shrink="yes"
+transparency=10t

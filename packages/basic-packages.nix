@@ -4,4 +4,5 @@ pkgs: with pkgs; [
   usbutils
   git
   neofetch # of course :)
+  killall
 ]

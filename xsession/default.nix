@@ -15,6 +15,19 @@ let
       "Iosevka"
     ];
   };
+  wallpaper = pkgs.fetchurl {
+    url = "https://i.redd.it/ni1r1agwtrh71.png";
+    sha256 = "00sg8mn6xdiqdsc1679xx0am3zf58fyj1c3l731imaypgmahkxj2";
+  };
+  dunst-config = import ./dunst/config-file.nix;
+  polybar-config = import ./polybar/config-file.nix;
+  xmonad-config = pkgs.writeTextFile { 
+     name = "xmonad.hs"; 
+     text = (builtins.replaceStrings
+       [ "POLYBAR-CONFIG"    "DUNST-CONFIG"   ] 
+       [ "${polybar-config}" "${dunst-config}"]
+       (builtins.readFile ./xmonad/xmonad.hs));
+    };
 in
 {
   fonts.fonts = with pkgs; [
@@ -43,13 +56,16 @@ in
     pulseeffects-legacy
     networkmanagerapplet
     dmenu
+    (rofi.override { plugins = [ rofi-calc ]; })
     wmname
+    feh
     brightnessctl
     nomacs
     mupdf
     gnome.gnome-disk-utility
     gnome.file-roller
     system-config-printer
+    alacritty
 
     # xfce
     (thunar.override { thunarPlugins = myThunarPlugins; })
@@ -57,10 +73,12 @@ in
     xfce4-screenshooter
     xfce4-settings
     xfce4-taskmanager
-    xfce4-terminal
     xfconf
 
     # polybar stuff
+    myPolybar
+    picom
+    dunst
     playerctl
     (callPackage ../packages/ideapad-cm {})
     (callPackage ./polybar/polybar-scripts.nix {})
@@ -104,11 +122,11 @@ in
 	  horizontalScrolling = true;
         };
       };
-
+      
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        config = ./xmonad/xmonad.hs;
+        config = xmonad-config;
       };
       gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
     };
@@ -126,78 +144,4 @@ in
   systemd.packages = with pkgs.xfce; [
     (thunar.override { thunarPlugins = myThunarPlugins; })
   ];
-
-  home-manager.users.simen = {
-    programs = {
-      rofi = {
-        enable = true;
-        package = with pkgs; rofi.override { plugins = [ rofi-calc ]; };
-        extraConfig = { modi = "drun,calc,window"; };
-      };
-    };
-    services = {
-      polybar = {
-        enable = true;
-        package = myPolybar;
-        config = ./polybar/config.ini;
-        script = ''
-        '';
-      };
-      dunst = {
-        enable = true;
-        iconTheme = with pkgs; {
-          name = "Papirus-Dark";
-          package = papirus-icon-theme;
-          size = "16x16";
-        };
-        settings.global = {
-          shrink = "yes";
-          transparency = 10;
-          padding = 16;
-          horizontal_padding = 16;
-          font = "JetBrainsMono Nerd Font 10";
-          line_height = 4;
-          format = ''<b>%s</b>\n%b'';
-        };
-      };
-      screen-locker = {
-        enable = true;
-        inactiveInterval = 15;
-        lockCmd = "${pkgs.lightlocker}/bin/light-locker-command --lock";
-      };
-      picom = {
-        enable = true;
-        blur = true;
-	      blurExclude = [ "'class_g' = 'xfce4-screenshooter'" ];
-        activeOpacity = "1.0";
-        inactiveOpacity = "0.8";
-        backend = "glx";
-        opacityRule = [ "100:name *= 'light-locker'" ];
-        shadow = true;
-        shadowOpacity = "0.5";
-      };
-      pulseeffects = {
-        enable = true;
-        package = pkgs.pulseeffects-legacy;
-      };
-    };
-    xsession = {    
-      enable = true;
-      initExtra = with pkgs; ''
-        ${xfce.xfce4-settings}/bin/xfsettingsd --replace --disable-wm-check --daemon &
-        ${picom}/bin/picom &
-        ${myPolybar}/bin/polybar top  &
-        ${dunst}/bin/dunst &
-        ${blueman}/bin/blueman-applet &
-        ${networkmanagerapplet}/bin/nm-applet --sm-disable --indicator &
-        ${xfce.xfce4-power-manager}/bin/xfce4-power-manager --daemon &
-        ${lightlocker}/bin/light-locker &
-      '';
-      windowManager.xmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-        config = ./xmonad/xmonad.hs;
-      };
-    };  
-  };
 }

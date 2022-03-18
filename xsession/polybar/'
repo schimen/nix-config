@@ -7,11 +7,10 @@ background=${theme.transparent}
 foreground=${theme.foreground}
 padding-right = 0
 radius = 3
-monitor = ${env:MONITOR:eDP-1}
 
 ; Modules
 modules-left = powermenu ewmh 
-modules-right = music-status volume backlight battery cpu memory calendar
+modules-right = music-status volume backlight cm-status battery cpu memory date
 module-margin = 1
 module-padding = 1
 
@@ -36,11 +35,11 @@ click-left = playerctl play-pause &
 click-right = playerctl next &
 
 ;-Conservation-mode-status-module----------------------------------------------
-; [module/cm-status]
-; type = custom/script
-; exec = cm-status-script
-; label = %output%
-; interval = 15
+[module/cm-status]
+type = custom/script
+exec = cm-status-script
+label = %output%
+interval = 15
 
 ;-Workspace-module-------------------------------------------------------------
 [module/ewmh]
@@ -118,14 +117,20 @@ click-right = pavucontrol &
 type = custom/script
 interval = 60.0
 exec = date '+ %a %d %b  %H:%M'
-label-font = 2
-click-left  = calendar-notification-script curr
-scroll-down = calendar-notification-script next
-scroll-up   = calendar-notification-script prev
 
+
+
+
+;date = %a %d %b
+;time = %H:%M
 ;date-alt = Week %U
 ;time-alt = %H:%M:%S
 ;label = "  %date%  %time% "
+label-font = 2
+click-left  = calendar-notification-script curr
+scroll-up   = calendar-notification-script next
+scroll-down = calendar-notification-script prev
+
 
 ;-Battery-module---------------------------------------------------------------
 [module/battery]

@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.11.tar.gz";
   unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
   unstable = import unstableTarball { config = config.nixpkgs.config; };
   nurTarball = fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz";
@@ -98,6 +98,7 @@ in
 
     xserver.layout = "no";
     xserver.desktopManager.xterm.enable = false;
+    xserver.desktopManager.gnome.enable = true;
     xserver.displayManager = {
       defaultSession = "none+xmonad"; 
       startx.enable = false;
@@ -111,10 +112,22 @@ in
         };
       };
     };
+    xserver.xrandrHeads = [ { # set primary monitor to built-in monitor 
+      output = "eDP-1";
+      primary = true; 
+    } ];
   };
 
   # Enable sound.
   sound.enable = true;
+
+  # Enable docker
+  virtualisation = {
+    docker.enable = true;
+    kvmgt.enable = true;
+    virtualbox.host.enable = true;
+  };
+  
 
   hardware = {
     pulseaudio.enable = true;
@@ -137,6 +150,7 @@ in
   ] ++ basicPackages ++ myApps ++ developmentPackages;
 
   nixpkgs.config = {
+    permittedInsecurePackages = [ "electron-13.6.9" ];
     allowUnfree = true;
     packageOverrides = pkgs: { unstable = unstable; };
   };

@@ -15,9 +15,6 @@ stdenv.mkDerivation rec {
   src = ./scripts;
   phases = "installPhase fixupPhase";
   installPhase = ''
-    echo "starting"
-    ls ${src}
-
     mkdir -p $out/bin
     cp ${src}/* $out/bin/
     chmod +x $out/bin/*

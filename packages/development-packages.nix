@@ -21,23 +21,32 @@ pkgs: unstable: with pkgs; [
   (ghc.withPackages(hp: with hp; [
     JuicyPixels
     random
+    repa
+    JuicyPixels-repa
+    hmatrix
     vector-algorithms
     xmonad
     xmonad-extras
   ]))
 
   # Tools
-  vscodium
+  vscode-fhs
   direnv
+  qemu
+  qtemu
 
   # Embedded
-  (callPackage ./nrfjprog {})           # nrfjprog
-  (callPackage ./nrfconnect {})         # nRF Connect
+  #(callPackage ./nrfjprog {})           # nrfjprog
+  #(callPackage ./nrfconnect {})         # nRF Connect
   cutecom
   arduino
-  avrdude
   openocd
   dtc
+  # Avr
+  pkgsCross.avr.avrlibc
+  pkgsCross.avr.buildPackages.binutils
+  pkgsCross.avr.buildPackages.gcc
+  avrdude
 
   # C/C++
   gcc

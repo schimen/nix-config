@@ -17,8 +17,9 @@ pkgs: with pkgs; [
   drawio
   obsidian
   qalculate-gtk
-  (callPackage ./notion   {})   # Notion
-  (callPackage ./geogebra {})   # geogebra 6
+  geogebra6
+  #(callPackage ./notion   {}) # Notion
+  #(callPackage ./geogebra {}) # geogebra 6
   # Other tools
   freecad
   cura
@@ -27,7 +28,13 @@ pkgs: with pkgs; [
   musescore
   # Entertainment
   vlc
+  gnomecast
   minecraft
+  (callPackage ./optifine {}) # Optifine with my version
+  (callPackage ./pinball {}) # Optifine with my version
+  sgtpuzzles
   # Wine for windows applications:
   wineWowPackages.stable
+  # Virtualbox for windows
+  virtualbox
 ]
