@@ -65,7 +65,6 @@ in
     gnome.gnome-disk-utility
     gnome.file-roller
     system-config-printer
-    alacritty
 
     # xfce
     (thunar.override { thunarPlugins = myThunarPlugins; })
