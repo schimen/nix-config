@@ -6,4 +6,4 @@ icon_path=ICON_PATH
 line_height=4
 padding=16
 shrink="yes"
-transparency=10t
+transparency=10

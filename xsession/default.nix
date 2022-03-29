@@ -65,6 +65,7 @@ in
     gnome.gnome-disk-utility
     gnome.file-roller
     system-config-printer
+    lxqt.lxqt-policykit
 
     # xfce
     (thunar.override { thunarPlugins = myThunarPlugins; })
@@ -96,7 +97,6 @@ in
     upower.enable = true;
     gnome.glib-networking.enable = true;
     gnome.gnome-keyring.enable = true;
-    gvfs.enable = true;
 
     dbus = {
       enable = true;
