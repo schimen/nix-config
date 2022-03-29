@@ -52,7 +52,7 @@ in
     interfaces.wlp0s20f3.useDHCP = true; # wifi
     networkmanager = {
       enable = true;
-      dhcp = "dhclient"; # because of eduroam
+      # dhcp = "dhclient"; # because of eduroam
       packages = with pkgs; [
         networkmanager-openvpn
         networkmanager-openconnect
@@ -76,8 +76,8 @@ in
     printing.enable = true;
 
     # Enable mDNS
-    avahi.enable = true;
-    avahi.nssmdns = true;
+    # avahi.enable = true;
+    # avahi.nssmdns = true;
     
     # Enable onedrive
     onedrive.enable = true;
@@ -128,12 +128,15 @@ in
     virtualbox.host.enable = true;
   };
   
-
   hardware = {
-    pulseaudio.enable = true;
+    pulseaudio = {
+      enable = true;
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
+      package = pkgs.pulseaudioFull;
+    };
     bluetooth.enable = true;
   };
-  
+
   qt5 = {
     enable = true;
     platformTheme = "gtk2";
