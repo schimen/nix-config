@@ -1,4 +1,4 @@
-pkgs: with pkgs; [
+pkgs: unstable: with pkgs; [
   # Apps
   firefox
   thunderbird
@@ -30,7 +30,7 @@ pkgs: with pkgs; [
   vlc
   gnomecast
   minecraft
-  (callPackage ./optifine {}) # Optifine with my version
+  unstable.optifine
   (callPackage ./pinball {}) # Optifine with my version
   sgtpuzzles
   # Wine for windows applications:

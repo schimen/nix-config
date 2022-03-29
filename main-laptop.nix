@@ -6,7 +6,7 @@ let
   unstable = import unstableTarball { config = config.nixpkgs.config; };
   nurTarball = fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz";
   basicPackages = import ./packages/basic-packages.nix pkgs;
-  myApps = import ./packages/my-apps.nix pkgs;
+  myApps = import ./packages/my-apps.nix pkgs unstable;
   developmentPackages = import ./packages/development-packages.nix pkgs unstable;
 
   wallpaper = pkgs.fetchurl {
