@@ -34,6 +34,7 @@ pkgs: unstable: with pkgs; [
   direnv
   qemu
   qtemu
+  socat
 
   # Embedded
   #(callPackage ./nrfjprog {})           # nrfjprog
@@ -54,4 +55,6 @@ pkgs: unstable: with pkgs; [
   gnumake
   unstable.cmake
   ninja
+  clang
+  clang-tools
 ]
