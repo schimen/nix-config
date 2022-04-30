@@ -40,8 +40,6 @@ pkgs: unstable: with pkgs; [
   xclip
 
   # Embedded
-  #(callPackage ./nrfjprog {})           # nrfjprog
-  #(callPackage ./nrfconnect {})         # nRF Connect
   cutecom
   arduino
   openocd
