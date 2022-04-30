@@ -23,7 +23,7 @@ main = do
         , focusedBorderColor = myFocusedBorderColor
         , layoutHook         = myLayoutHook
         , keys               = myKeys        <+> keys        desktopConfig
-	, startupHook        = myStartupHook <+> startupHook xfceConfig
+        , startupHook        = myStartupHook <+> startupHook xfceConfig
         , manageHook         = manageSpawn   <+> manageHook  xfceConfig
     }
 
@@ -102,9 +102,6 @@ myStartupHook = do
   spawn "light-locker"
   -- open applications on startup
   spawnOn "Main"   "firefox"
-  spawnOn "Side"   "teams"
-  spawnOn "Notes"  "obsidian"
   spawnOn "Mail"   "thunderbird"
-  spawnOn "Social" "discord"
   spawnOn "Social" "slack"
 
