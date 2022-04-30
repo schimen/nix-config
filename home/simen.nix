@@ -25,8 +25,7 @@ in
       bash = {
         enable = true;
 	shellAliases = {
-	  "nconf" = "sudo nvim /etc/nixos/configuration.nix";
-	  "nhome" = "sudo nvim /etc/nixos/home.nix";
+	  "clip"  = "xclip -selection clipboard";
         };
 	bashrcExtra = ''
 	  eval "$(direnv hook bash)"
