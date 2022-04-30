@@ -35,6 +35,9 @@ pkgs: unstable: with pkgs; [
   qemu
   qtemu
   socat
+  bat
+  fd
+  xclip
 
   # Embedded
   #(callPackage ./nrfjprog {})           # nrfjprog
@@ -42,6 +45,7 @@ pkgs: unstable: with pkgs; [
   cutecom
   arduino
   openocd
+  teensy-loader-cli
   dtc
   # Avr
   pkgsCross.avr.avrlibc

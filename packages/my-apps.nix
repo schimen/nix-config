@@ -23,7 +23,7 @@ pkgs: unstable: with pkgs; [
   # Other tools
   freecad
   cura
-  gimp
+  gimp-with-plugins
   transmission-gtk
   musescore
   # Entertainment
