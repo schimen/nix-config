@@ -28,15 +28,16 @@ in
 	  "clip"  = "xclip -selection clipboard";
         };
 	bashrcExtra = ''
-	  eval "$(direnv hook bash)"
-	  PS1="\n\[\033[1;32m\]\[\e]0;\u@\h: \w\a\]\u:\w \[\033[1;34m\]\$\[\033[0m\] "
-	'';
+          eval "$(direnv hook bash)"
+          PS1="\n\[\033[1;32m\]\[\e]0;\u@\h: \w\a\]\u:\w \[\033[1;34m\]\$\[\033[0m\] "
+        '';
       };
       alacritty = {
         enable = true;
         settings = alacritty-settings;
       };
     };
+    services.pulseeffects.enable = true;
     gtk = {
       enable = true;
       iconTheme = with pkgs; {
