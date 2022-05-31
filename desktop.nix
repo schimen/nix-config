@@ -122,6 +122,10 @@ in
     bluetooth.enable = true;
   };
 
+  virtualisation = {
+    docker.enable = true;
+  };
+
   qt5 = {
     enable = true;
     platformTheme = "gtk2";
@@ -134,7 +138,11 @@ in
     steam.enable = true;
   };
 
-  environment.systemPackages = basicPackages ++ myApps ++ developmentPackages;
+  environment.systemPackages =
+    [ pkgs.ltunify ] ++ 
+    basicPackages ++
+    myApps ++
+    developmentPackages;
   
   nixpkgs.config = {
     allowUnfree = true;
