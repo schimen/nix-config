@@ -53,7 +53,6 @@ in
     xdg-user-dirs
     lightlocker
     pavucontrol
-    pulseeffects-legacy
     networkmanagerapplet
     dmenu
     (rofi.override { plugins = [ rofi-calc ]; })

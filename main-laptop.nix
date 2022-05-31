@@ -8,6 +8,7 @@ let
   basicPackages = import ./packages/basic-packages.nix pkgs;
   myApps = import ./packages/my-apps.nix pkgs unstable;
   developmentPackages = import ./packages/development-packages.nix pkgs unstable;
+  systec_can = (pkgs.callPackage ./packages/systec_can { kernel=pkgs.linuxPackages.kernel; });
 
   wallpaper = pkgs.fetchurl {
     url = "https://i.redd.it/ni1r1agwtrh71.png";
@@ -21,6 +22,7 @@ in
     ];
 
   boot = {
+    extraModulePackages = [ systec_can ];
     plymouth = {
       enable = true;
     };
@@ -52,7 +54,7 @@ in
     interfaces.wlp0s20f3.useDHCP = true; # wifi
     networkmanager = {
       enable = true;
-      # dhcp = "dhclient"; # because of eduroam
+      dhcp = "dhclient"; # because of eduroam
       packages = with pkgs; [
         networkmanager-openvpn
         networkmanager-openconnect
@@ -153,7 +155,7 @@ in
   ] ++ basicPackages ++ myApps ++ developmentPackages;
 
   nixpkgs.config = {
-    permittedInsecurePackages = [ "electron-13.6.9" ];
+    permittedInsecurePackages = [ "electron-14.2.9" ];
     allowUnfree = true;
     packageOverrides = pkgs: { unstable = unstable; };
   };

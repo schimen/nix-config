@@ -19,11 +19,10 @@ pkgs: unstable: with pkgs; [
   qalculate-gtk
   geogebra6
   #(callPackage ./notion   {}) # Notion
-  #(callPackage ./geogebra {}) # geogebra 6
   # Other tools
   freecad
   cura
-  gimp
+  gimp-with-plugins
   transmission-gtk
   musescore
   # Entertainment
@@ -31,7 +30,7 @@ pkgs: unstable: with pkgs; [
   gnomecast
   minecraft
   unstable.optifine
-  (callPackage ./pinball {}) # Optifine with my version
+  (callPackage ./pinball {})
   sgtpuzzles
   # Wine for windows applications:
   wineWowPackages.stable
