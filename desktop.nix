@@ -90,9 +90,6 @@ in
     # Enable onedrive
     onedrive.enable = true;
 
-    # Enable blueman
-    blueman.enable = true;   
-
     # Enable full gvfs support
     gvfs = {
       enable = true;
@@ -145,6 +142,7 @@ in
     developmentPackages;
   
   nixpkgs.config = {
+    permittedInsecurePackages = [ "electron-14.2.9" ];
     allowUnfree = true;
     packageOverrides = pkgs: { unstable = unstable; }; 
   };
