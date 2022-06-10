@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
-let
-  commonUserPackages  = import ../packages/common-user-packages.nix pkgs;
-in
+
 {
   users.users.jamila = {
     isNormalUser = true;
@@ -14,4 +12,8 @@ in
   };
 
   services.xserver.desktopManager.gnome.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    google-chrome
+  ];
 }
