@@ -4,10 +4,10 @@ pkgs: unstable: with pkgs; [
   thunderbird
   spotify
   # Social
-  discord
-  teams
+  unstable.discord
+  unstable.teams
   slack
-  zoom-us
+  unstable.zoom-us
   # School (tools)
   libreoffice
   gnuradio
@@ -15,9 +15,9 @@ pkgs: unstable: with pkgs; [
   gummi
   kicad
   drawio
-  obsidian
+  unstable.obsidian
   qalculate-gtk
-  geogebra6
+  unstable.geogebra6
   #(callPackage ./notion   {}) # Notion
   # Other tools
   freecad
