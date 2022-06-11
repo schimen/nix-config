@@ -25,6 +25,7 @@ pkgs: unstable: with pkgs; [
   gimp-with-plugins
   transmission-gtk
   musescore
+  realvnc-vnc-viewer
   # Entertainment
   vlc
   gnomecast
