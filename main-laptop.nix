@@ -19,6 +19,7 @@ in
   imports =
     [ "${home-manager}/nixos"
       ./home/simen.nix
+      ./home/jamila.nix
     ];
 
   boot = {
@@ -44,7 +45,6 @@ in
   
   networking = {
     hostName = "schimen-laptop-nixos"; # Define your hostname.
-    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
     # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -76,10 +76,15 @@ in
 
     # Enable CUPS to print documents.
     printing.enable = true;
+    # Samba for printing
+    samba = {
+      enable = true;
+      package = pkgs.sambaFull;
+    };
 
     # Enable mDNS
-    # avahi.enable = true;
-    # avahi.nssmdns = true;
+    avahi.enable = true;
+    avahi.nssmdns = true;
     
     # Enable onedrive
     onedrive.enable = true;
@@ -99,6 +104,7 @@ in
     '';
 
     xserver.layout = "no";
+    xserver.libinput.enable = true;
     xserver.desktopManager.xterm.enable = false;
     xserver.desktopManager.gnome.enable = true;
     xserver.displayManager = {
@@ -131,11 +137,7 @@ in
   };
   
   hardware = {
-    pulseaudio = {
-      enable = true;
-      extraModules = [ pkgs.pulseaudio-modules-bt ];
-      package = pkgs.pulseaudioFull;
-    };
+    pulseaudio.enable = true;
     bluetooth.enable = true;
   };
 
