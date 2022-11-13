@@ -2,13 +2,16 @@ pkgs: unstable: with pkgs; [
   # Python
   (python39.withPackages(ps: with ps; [
     aiohttp
+    aiofiles
     beautifulsoup4
     ipython
     ipykernel
     notebook
     matplotlib
     numpy
+    pybluez
     sympy
+    scipy
     pandas
     requests
     tkinter
@@ -27,6 +30,8 @@ pkgs: unstable: with pkgs; [
     vector-algorithms
     xmonad
     xmonad-extras
+    matplotlib
+    haskell-language-server
   ]))
 
   # Tools
@@ -38,6 +43,7 @@ pkgs: unstable: with pkgs; [
   bat
   fd
   xclip
+  pandoc
 
   # Embedded
   cutecom

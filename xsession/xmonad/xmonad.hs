@@ -102,6 +102,6 @@ myStartupHook = do
   spawn "light-locker"
   -- open applications on startup
   spawnOn "Main"   "firefox"
+  spawnOn "Side"   "todoist-electron"
   spawnOn "Mail"   "thunderbird"
-  spawnOn "Social" "slack"
 

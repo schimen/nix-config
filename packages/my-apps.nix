@@ -9,6 +9,7 @@ pkgs: unstable: with pkgs; [
   slack
   unstable.zoom-us
   # School (tools)
+  todoist-electron
   libreoffice
   gnuradio
   texlive.combined.scheme-basic
@@ -21,7 +22,9 @@ pkgs: unstable: with pkgs; [
   #(callPackage ./notion   {}) # Notion
   # Other tools
   freecad
+  povray # Render for freecad
   cura
+  darktable
   gimp-with-plugins
   transmission-gtk
   musescore
@@ -33,6 +36,7 @@ pkgs: unstable: with pkgs; [
   unstable.optifine
   (callPackage ./pinball {})
   sgtpuzzles
+  calibre
   # Wine for windows applications:
   wineWowPackages.stable
   # Virtualbox for windows
