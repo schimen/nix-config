@@ -18,10 +18,10 @@ pkgs: unstable: with pkgs; [
   drawio
   unstable.obsidian
   qalculate-gtk
-  unstable.geogebra6
-  #(callPackage ./notion   {}) # Notion
+  geogebra6
   # Other tools
   freecad
+  reaper
   povray # Render for freecad
   cura
   darktable
@@ -39,6 +39,7 @@ pkgs: unstable: with pkgs; [
   calibre
   # Wine for windows applications:
   wineWowPackages.stable
+  winetricks
   # Virtualbox for windows
   virtualbox
 ]
