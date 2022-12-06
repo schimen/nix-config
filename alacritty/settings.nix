@@ -24,10 +24,10 @@ let
           foreground = "#44475a";
           background = "#ffb86c";
         };
-        bar = {
-          background = "#282a36";
-          foreground = "#f8f8f2";
-        };
+      };
+      footer_bar = {
+        background = "#282a36";
+        foreground = "#f8f8f2";
       };
       hints = {
         start = {

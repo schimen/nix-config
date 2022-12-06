@@ -51,6 +51,9 @@ pkgs: unstable: with pkgs; [
   openocd
   teensy-loader-cli
   dtc
+  # nRF
+  nrf-command-line-tools
+  nrfconnect
   # Avr
   pkgsCross.avr.avrlibc
   pkgsCross.avr.buildPackages.binutils
