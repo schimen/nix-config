@@ -35,7 +35,7 @@ in
     tamsyn
     roboto
     noto-fonts
-    font-awesome-ttf
+    font-awesome
     customFonts
   ];
 

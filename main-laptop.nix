@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.11.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz";
   unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
   unstable = import unstableTarball { config = config.nixpkgs.config; };
   nurTarball = fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz";
@@ -21,7 +21,7 @@ in
       ./home/simen.nix
       ./home/jamila.nix
     ];
-
+  
   boot = {
     extraModulePackages = [ systec_can ];
     plymouth = {
@@ -54,8 +54,8 @@ in
     interfaces.wlp0s20f3.useDHCP = true; # wifi
     networkmanager = {
       enable = true;
-      dhcp = "dhclient"; # because of eduroam
-      packages = with pkgs; [
+      dhcp = "dhcpcd"; # because of eduroam
+      plugins = with pkgs; [
         networkmanager-openvpn
         networkmanager-openconnect
       ];
@@ -159,6 +159,7 @@ in
   nixpkgs.config = {
     permittedInsecurePackages = [ "electron-14.2.9" ];
     allowUnfree = true;
+    segger-jlink.acceptLicense = true;
     packageOverrides = pkgs: { unstable = unstable; };
   };
 }

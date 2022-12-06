@@ -14,6 +14,7 @@ in
   };
 
   home-manager.users.simen = {
+    home.stateVersion = "22.11";
     home.keyboard.layout = "no";
     programs = {
       home-manager.enable = true;
