@@ -10,7 +10,7 @@ in
 
   users.users.simen = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "dialout" "docker" ];
+    extraGroups = [ "wheel" "networkmanager" "dialout" "docker" "kvm" ];
   };
 
   home-manager.users.simen = {
@@ -38,7 +38,6 @@ in
         settings = alacritty-settings;
       };
     };
-    services.pulseeffects.enable = true;
     gtk = {
       enable = true;
       iconTheme = with pkgs; {

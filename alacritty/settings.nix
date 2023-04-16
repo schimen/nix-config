@@ -71,6 +71,6 @@ let
   };
 in
   lib: lib.mergeAttrs {
-    env.TERM = "alacritty";
+    env.TERM = "xterm-256color";
     font.size = 8;
     } dracula-theme

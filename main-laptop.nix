@@ -1,15 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, options, ... }:
 
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz";
-  unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-  unstable = import unstableTarball { config = config.nixpkgs.config; };
-  nurTarball = fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz";
   basicPackages = import ./packages/basic-packages.nix pkgs;
+  unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
   myApps = import ./packages/my-apps.nix pkgs unstable;
   developmentPackages = import ./packages/development-packages.nix pkgs unstable;
-  systec_can = (pkgs.callPackage ./packages/systec_can { kernel=pkgs.linuxPackages.kernel; });
-
   wallpaper = pkgs.fetchurl {
     url = "https://i.redd.it/ni1r1agwtrh71.png";
     sha256 = "00sg8mn6xdiqdsc1679xx0am3zf58fyj1c3l731imaypgmahkxj2";
@@ -17,13 +12,12 @@ let
 in 
 {
   imports =
-    [ "${home-manager}/nixos"
+    [ <home-manager/nixos>
       ./home/simen.nix
       ./home/jamila.nix
     ];
   
   boot = {
-    extraModulePackages = [ systec_can ];
     plymouth = {
       enable = true;
     };
@@ -54,14 +48,19 @@ in
     interfaces.wlp0s20f3.useDHCP = true; # wifi
     networkmanager = {
       enable = true;
-      dhcp = "dhcpcd"; # because of eduroam
+      #dhcp = "dhcpcd"; # because of eduroam
       plugins = with pkgs; [
         networkmanager-openvpn
         networkmanager-openconnect
       ];
     };
   };
-    
+
+  systemd.services = { # Temporary solution before nixpkgs issue #180175 is resolved
+    NetworkManager-wait-online.enable = lib.mkForce false;
+    systemd-networkd-wait-online.enable = lib.mkForce false;
+  };
+
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
   
@@ -98,17 +97,25 @@ in
       package = lib.mkForce pkgs.gnome.gvfs;
     };
 
-    # rule for full control of usb
+    # Rule for full control of usb
     udev.extraRules = ''
       SUBSYSTEM=="usb", MODE="0666", GROUP="users"
     '';
+
+    # PipeWire
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
 
     xserver.layout = "no";
     xserver.libinput.enable = true;
     xserver.desktopManager.xterm.enable = false;
     xserver.desktopManager.gnome.enable = true;
     xserver.displayManager = {
-      defaultSession = "none+xmonad"; 
+      defaultSession = "none+xmonad";
       startx.enable = false;
       lightdm = {
         enable = true;
@@ -126,9 +133,6 @@ in
     } ];
   };
 
-  # Enable sound.
-  sound.enable = true;
-
   # Enable docker
   virtualisation = {
     docker.enable = true;
@@ -137,9 +141,12 @@ in
   };
   
   hardware = {
-    pulseaudio.enable = true;
+    pulseaudio.enable = false;
     bluetooth.enable = true;
   };
+
+  # rtkit for PipeWire
+  security.rtkit.enable = true;
 
   qt5 = {
     enable = true;
@@ -150,6 +157,7 @@ in
   programs = {
     tmux.enable = true;
     steam.enable = true;
+    dconf.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -161,6 +169,10 @@ in
     allowUnfree = true;
     segger-jlink.acceptLicense = true;
     packageOverrides = pkgs: { unstable = unstable; };
+    allowUnsupportedSystem = true;
   };
+  nixpkgs.overlays = [
+    (import ./overlays/realvnc.nix)
+  ];
 }
 

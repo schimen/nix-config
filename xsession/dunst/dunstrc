@@ -7,3 +7,4 @@ line_height=4
 padding=16
 shrink="yes"
 transparency=10
+follow=keyboard

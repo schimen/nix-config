@@ -40,7 +40,6 @@ in
   ];
 
   powerManagement.enable = true;
-  hardware.pulseaudio.enable = true;
   environment.systemPackages = with pkgs.xfce // pkgs; [
     glib
     gtk2
@@ -118,6 +117,8 @@ in
 	  naturalScrolling = false;
 	  scrollMethod = "twofinger";
 	  horizontalScrolling = true;
+	  tappingButtonMap = "lrm";
+	  tappingDragLock = true;
         };
       };
       

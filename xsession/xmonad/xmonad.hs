@@ -103,5 +103,6 @@ myStartupHook = do
   -- open applications on startup
   spawnOn "Main"   "firefox"
   spawnOn "Side"   "todoist-electron"
+  spawnOn "Social" "slack"
   spawnOn "Mail"   "thunderbird"
 
