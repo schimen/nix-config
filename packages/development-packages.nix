@@ -1,4 +1,5 @@
-pkgs: unstable: with pkgs; [
+pkgs: unstable: 
+with pkgs; [
   # Python
   (python39.withPackages(ps: with ps; [
     aiohttp
@@ -9,16 +10,14 @@ pkgs: unstable: with pkgs; [
     notebook
     matplotlib
     numpy
-    pybluez
+    pydub
     sympy
     scipy
     pandas
     requests
     tkinter
-    west # zephyr python package
-    pyelftools
-    pyserial
-  ]))
+  ] ++ (import ./west-packages.nix ps)
+  ))
 
   # Haskell
   (ghc.withPackages(hp: with hp; [
@@ -44,6 +43,8 @@ pkgs: unstable: with pkgs; [
   fd
   xclip
   pandoc
+  ffmpeg
+  p7zip
 
   # Embedded
   cutecom
@@ -55,7 +56,6 @@ pkgs: unstable: with pkgs; [
   nrf-command-line-tools
   nrfconnect
   # Avr
-  pkgsCross.avr.avrlibc
   pkgsCross.avr.buildPackages.binutils
   pkgsCross.avr.buildPackages.gcc
   avrdude

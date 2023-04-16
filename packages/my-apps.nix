@@ -7,6 +7,7 @@ pkgs: unstable: with pkgs; [
   unstable.discord
   unstable.teams
   slack
+  element-desktop
   unstable.zoom-us
   # School (tools)
   todoist-electron
@@ -20,8 +21,10 @@ pkgs: unstable: with pkgs; [
   qalculate-gtk
   geogebra6
   # Other tools
+  borgbackup
   freecad
   reaper
+  audacity
   povray # Render for freecad
   cura
   darktable
@@ -31,6 +34,7 @@ pkgs: unstable: with pkgs; [
   realvnc-vnc-viewer
   # Entertainment
   vlc
+  gnome-network-displays
   gnomecast
   minecraft
   unstable.optifine
@@ -38,8 +42,6 @@ pkgs: unstable: with pkgs; [
   sgtpuzzles
   calibre
   # Wine for windows applications:
-  wineWowPackages.stable
+  wineWowPackages.full
   winetricks
-  # Virtualbox for windows
-  virtualbox
 ]
