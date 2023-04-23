@@ -19,13 +19,13 @@ let
     url = "https://i.redd.it/ni1r1agwtrh71.png";
     sha256 = "00sg8mn6xdiqdsc1679xx0am3zf58fyj1c3l731imaypgmahkxj2";
   };
-  dunst-config = import ./dunst/config-file.nix;
+  notify-app-path = "${pkgs.xfce.xfce4-notifyd}/lib/xfce4/notifyd/xfce4-notifyd";
   polybar-config = import ./polybar/config-file.nix;
   xmonad-config = pkgs.writeTextFile { 
      name = "xmonad.hs"; 
      text = (builtins.replaceStrings
-       [ "POLYBAR-CONFIG"    "DUNST-CONFIG"   ] 
-       [ "${polybar-config}" "${dunst-config}"]
+       [ "POLYBAR-CONFIG"    "NOTIFY-APP"   ] 
+       [ "${polybar-config}" "${notify-app-path}"]
        (builtins.readFile ./xmonad/xmonad.hs));
     };
 in
@@ -71,6 +71,7 @@ in
     xfce4-screenshooter
     xfce4-settings
     xfce4-taskmanager
+    xfce4-notifyd
     xfconf
 
     # polybar stuff

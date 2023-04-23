@@ -95,7 +95,7 @@ myStartupHook = do
   spawn "xfsettingsd"
   spawn "picom"
   spawn "polybar top --config=POLYBAR-CONFIG"
-  spawn "dunst -conf DUNST-CONFIG"
+  spawn "NOTIFY-APP"
   spawn "blueman-applet"
   spawn "nm-applet --sm-disable --indicator"
   spawn "xfce4-power-manager --daemon"
