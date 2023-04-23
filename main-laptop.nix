@@ -165,7 +165,10 @@ in
   ] ++ basicPackages ++ myApps ++ developmentPackages;
 
   nixpkgs.config = {
-    permittedInsecurePackages = [ "electron-14.2.9" ];
+    permittedInsecurePackages = [ 
+      "electron-21.4.0"
+      "electron-14.2.9"
+    ];
     allowUnfree = true;
     segger-jlink.acceptLicense = true;
     packageOverrides = pkgs: { unstable = unstable; };
