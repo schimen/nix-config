@@ -39,5 +39,5 @@ pkgs: unstable: with pkgs; [
   (callPackage ./pinball {})
   calibre
   # Wine for windows applications:
-  wineWowPackages.full
+  wine
 ]

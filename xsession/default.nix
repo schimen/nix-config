@@ -15,10 +15,6 @@ let
       "Iosevka"
     ];
   };
-  wallpaper = pkgs.fetchurl {
-    url = "https://i.redd.it/ni1r1agwtrh71.png";
-    sha256 = "00sg8mn6xdiqdsc1679xx0am3zf58fyj1c3l731imaypgmahkxj2";
-  };
   notify-app-path = "${pkgs.xfce.xfce4-notifyd}/lib/xfce4/notifyd/xfce4-notifyd";
   polybar-config = import ./polybar/config-file.nix;
   xmonad-config = pkgs.writeTextFile { 

@@ -54,6 +54,8 @@ in
         networkmanager-openconnect
       ];
     };
+    # Samba discovery of machines and shares may need the firewall to be tuned (https://nixos.wiki/wiki/Samba)
+    firewall.extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
   };
 
   systemd.services = { # Temporary solution before nixpkgs issue #180175 is resolved
@@ -75,15 +77,13 @@ in
 
     # Enable CUPS to print documents.
     printing.enable = true;
-    # Samba for printing
-    samba = {
-      enable = true;
-      package = pkgs.sambaFull;
-    };
 
-    # Enable mDNS
-    avahi.enable = true;
-    avahi.nssmdns = true;
+    # Avahi settings for printing
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      openFirewall = true;
+    };
     
     # Enable onedrive
     onedrive.enable = true;
@@ -113,7 +113,6 @@ in
     xserver.layout = "no";
     xserver.libinput.enable = true;
     xserver.desktopManager.xterm.enable = false;
-    xserver.desktopManager.gnome.enable = true;
     xserver.displayManager = {
       defaultSession = "none+xmonad";
       startx.enable = false;
@@ -137,7 +136,6 @@ in
   virtualisation = {
     docker.enable = true;
     kvmgt.enable = true;
-    virtualbox.host.enable = true;
   };
   
   hardware = {
