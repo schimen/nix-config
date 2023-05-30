@@ -7,7 +7,6 @@ pkgs: unstable: with pkgs; [
   unstable.discord
   unstable.teams
   slack
-  element-desktop
   unstable.zoom-us
   # School (tools)
   todoist-electron
@@ -15,6 +14,7 @@ pkgs: unstable: with pkgs; [
   gnuradio
   texlive.combined.scheme-basic
   gummi
+  zotero
   kicad
   drawio
   unstable.obsidian
@@ -23,25 +23,21 @@ pkgs: unstable: with pkgs; [
   # Other tools
   borgbackup
   freecad
-  reaper
+  blender
   audacity
   povray # Render for freecad
   cura
   darktable
   gimp-with-plugins
   transmission-gtk
-  musescore
   realvnc-vnc-viewer
   # Entertainment
   vlc
   gnome-network-displays
-  gnomecast
   minecraft
   unstable.optifine
   (callPackage ./pinball {})
-  sgtpuzzles
   calibre
   # Wine for windows applications:
   wineWowPackages.full
-  winetricks
 ]

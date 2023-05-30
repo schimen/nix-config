@@ -48,6 +48,7 @@ with pkgs; [
 
   # Embedded
   cutecom
+  pulseview
   arduino
   openocd
   teensy-loader-cli
@@ -55,6 +56,9 @@ with pkgs; [
   # nRF
   nrf-command-line-tools
   nrfconnect
+  nrfutil
+  nrf5-sdk
+  segger-jlink
   # Avr
   pkgsCross.avr.buildPackages.binutils
   pkgsCross.avr.buildPackages.gcc
