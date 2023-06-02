@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 let
-  commonUserPackages  = import ../packages/common-user-packages.nix pkgs;
   alacritty-settings = import ../alacritty/settings.nix pkgs.lib;
 in
 {

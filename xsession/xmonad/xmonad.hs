@@ -92,6 +92,7 @@ myFocusedBorderColor = "#BD93F9"
 -- startup
 myStartupHook = do 
   -- necessary startup
+  spawn "dbus-launch"
   spawn "xfsettingsd"
   spawn "picom"
   spawn "polybar top --config=POLYBAR-CONFIG"
