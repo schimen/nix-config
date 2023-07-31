@@ -7,6 +7,7 @@ pkgs: unstable: with pkgs; [
   unstable.discord
   unstable.teams
   slack
+  signal-desktop
   unstable.zoom-us
   # School (tools)
   todoist-electron

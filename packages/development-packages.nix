@@ -1,19 +1,18 @@
 pkgs: unstable: 
 with pkgs; [
   # Python
-  (python39.withPackages(ps: with ps; [
+  (python3.withPackages(ps: with ps; [
     aiohttp
     aiofiles
     beautifulsoup4
-    ipython
     ipykernel
-    notebook
+    jupyterlab
     matplotlib
     numpy
+    pandas
     pydub
     sympy
     scipy
-    pandas
     requests
     tkinter
   ] ++ (import ./west-packages.nix ps)
@@ -37,7 +36,7 @@ with pkgs; [
   vscode-fhs
   direnv
   qemu
-  qtemu
+  virt-manager
   socat
   bat
   fd
@@ -45,6 +44,8 @@ with pkgs; [
   pandoc
   ffmpeg
   p7zip
+  git-cola
+  kdiff3
 
   # Embedded
   cutecom
