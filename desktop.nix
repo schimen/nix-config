@@ -33,7 +33,6 @@ in
       efi.canTouchEfiVariables = true;
       grub = {
         enable = true;
-        version = 2;
         useOSProber = true;
         efiSupport = true;
         devices = [ "nodev" ];
@@ -121,9 +120,11 @@ in
 
   virtualisation = {
     docker.enable = true;
+    kvmgt.enable = true;
+    libvirtd.enable = true;
   };
 
-  qt5 = {
+  qt = {
     enable = true;
     platformTheme = "gtk2";
     style = "gtk2";
