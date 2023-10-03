@@ -25,24 +25,23 @@ in
       "ntfs"                                                                                 
     ];
     loader = {
-      timeout = 1;
+      timeout = 5;
       systemd-boot.enable = false;
       efi.canTouchEfiVariables = true;
       grub = {
         enable = true;
-        version = 2;
         useOSProber = true;
         efiSupport = true;
         devices = [ "nodev" ];
-        # extraEntries = ''
-        #   menuentry "macOS (Clover)" {
-        #     insmod chain
-        #     insmod part_gpt
-        #     insmod search_fs_uuid
-        #     search --fs-uuid --no-floppy --set=root 67E3-17ED
-        #     chainloader /EFI/CLOVER/CLOVERX64.efi
-        #   }
-        # '';
+        extraEntries = ''
+          menuentry "macOS (Clover)" {
+            insmod chain
+            insmod part_gpt
+            insmod search_fs_uuid
+            search --fs-uuid --no-floppy --set=root 67E3-17ED
+            chainloader /EFI/CLOVER/CLOVERX64.efi
+          }
+        '';
       };
     };
   };
@@ -135,7 +134,7 @@ in
   # rtkit for PipeWire
   security.rtkit.enable = true;
 
-  qt5 = {
+  qt = {
     enable = true;
     platformTheme = "gtk2";
     style = "gtk2";
