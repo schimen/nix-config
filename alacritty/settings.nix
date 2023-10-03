@@ -69,8 +69,27 @@ let
       };
     };
   };
+  iosevka = {
+    size = 8;
+    normal = { # Normal (roman) font face
+      family = "Iosevka Nerd Font";
+      style = "Regular";
+    };
+    bold = { # Bold font face
+      family = "Iosevka Nerd Font";
+      style = "Bold";
+    };
+    italic = { # Italic font face
+      family = "Iosevka Nerd Font";
+      style = "Italic";
+    };
+    bold_italic = { # Bold italic font face
+      family = "Iosevka Nerd Font";
+      style = "Bold Italic";
+    };
+  };
 in
   lib: lib.mergeAttrs {
     env.TERM = "xterm-256color";
-    font.size = 8;
-    } dracula-theme
+    font = iosevka;  
+  } dracula-theme

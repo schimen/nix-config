@@ -124,6 +124,8 @@ in
 
   virtualisation = {
     docker.enable = true;
+    kvmgt.enable = true;
+    libvirtd.enable = true;
   };
 
   hardware = {

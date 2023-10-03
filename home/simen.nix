@@ -9,7 +9,9 @@ in
 
   users.users.simen = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "dialout" "docker" "kvm" ];
+    extraGroups = [
+      "wheel" "networkmanager" "dialout" "docker" "kvm" "libvirtd"
+    ];
   };
 
   home-manager.users.simen = {

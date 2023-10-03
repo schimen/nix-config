@@ -30,7 +30,6 @@ in
       efi.canTouchEfiVariables = true;
       grub = {
         enable = true;
-        version = 2;
         efiSupport = true;
         device = "nodev";
       };
@@ -110,32 +109,35 @@ in
       pulse.enable = true;
     };
 
-    xserver.layout = "no";
-    xserver.libinput.enable = true;
-    xserver.desktopManager.xterm.enable = false;
-    xserver.displayManager = {
-      defaultSession = "none+xmonad";
-      startx.enable = false;
-      lightdm = {
-        enable = true;
-        background = wallpaper;
-        greeters.gtk = {
+    xserver = {
+      layout = "no";
+      libinput.enable = true;
+      desktopManager.xterm.enable = false;
+      displayManager = {
+        defaultSession = "none+xmonad";
+        startx.enable = false;
+        lightdm = {
           enable = true;
-          theme.name = "Dracula";
-          iconTheme.name = "Papirus-Dark";
+          background = wallpaper;
+          greeters.gtk = {
+            enable = true;
+            theme.name = "Dracula";
+            iconTheme.name = "Papirus-Dark";
+          };
         };
       };
+      xrandrHeads = [ { # set primary monitor to built-in monitor 
+        output = "eDP-1";
+        primary = true; 
+      } ];
     };
-    xserver.xrandrHeads = [ { # set primary monitor to built-in monitor 
-      output = "eDP-1";
-      primary = true; 
-    } ];
   };
 
   # Enable docker
   virtualisation = {
     docker.enable = true;
     kvmgt.enable = true;
+    libvirtd.enable = true;
   };
   
   hardware = {
@@ -146,7 +148,7 @@ in
   # rtkit for PipeWire
   security.rtkit.enable = true;
 
-  qt5 = {
+  qt = {
     enable = true;
     platformTheme = "gtk2";
     style = "gtk2";
@@ -155,7 +157,6 @@ in
   programs = {
     tmux.enable = true;
     steam.enable = true;
-    dconf.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
