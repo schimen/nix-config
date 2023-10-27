@@ -169,9 +169,9 @@ in
 
   nixpkgs.config = {
     permittedInsecurePackages = [ 
-      "electron-21.4.0"
-      "electron-14.2.9"
+      "electron-24.8.6"
       "teams-1.5.00.23861"
+      "zotero-6.0.26"
     ];
     allowUnfree = true;
     segger-jlink.acceptLicense = true;
