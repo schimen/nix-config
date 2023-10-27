@@ -83,6 +83,9 @@ in
       nssmdns = true;
       openFirewall = true;
     };
+
+    # Enable teamviewer
+    teamviewer.enable = true;
     
     # Enable onedrive
     onedrive.enable = true;
@@ -113,6 +116,7 @@ in
       layout = "no";
       libinput.enable = true;
       desktopManager.xterm.enable = false;
+      desktopManager.gnome.enable = true;
       displayManager = {
         defaultSession = "none+xmonad";
         startx.enable = false;
@@ -167,6 +171,7 @@ in
     permittedInsecurePackages = [ 
       "electron-21.4.0"
       "electron-14.2.9"
+      "teams-1.5.00.23861"
     ];
     allowUnfree = true;
     segger-jlink.acceptLicense = true;
