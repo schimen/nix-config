@@ -36,6 +36,7 @@ with pkgs; [
   vscode-fhs
   direnv
   qemu
+  teamviewer
   virt-manager
   socat
   bat

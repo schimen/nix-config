@@ -5,7 +5,7 @@ pkgs: unstable: with pkgs; [
   spotify
   # Social
   unstable.discord
-  unstable.teams
+  teams
   slack
   signal-desktop
   unstable.zoom-us
@@ -21,15 +21,18 @@ pkgs: unstable: with pkgs; [
   unstable.obsidian
   qalculate-gtk
   geogebra6
+  (callPackage ./openconnect-sso {}) # program to make ntnu vpn work
   # Other tools
   borgbackup
   freecad
   blender
   audacity
+  reaper
   povray # Render for freecad
   cura
   darktable
   gimp-with-plugins
+  krita
   transmission-gtk
   realvnc-vnc-viewer
   # Entertainment
@@ -40,5 +43,5 @@ pkgs: unstable: with pkgs; [
   (callPackage ./pinball {})
   calibre
   # Wine for windows applications:
-  wine
+  wineWowPackages.stable
 ]
