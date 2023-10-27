@@ -21,7 +21,7 @@ pkgs: unstable: with pkgs; [
   unstable.obsidian
   qalculate-gtk
   geogebra6
-  (callPackage ./packages/openconnect-sso {}) # program to make ntnu vpn work
+  (callPackage ./openconnect-sso {}) # program to make ntnu vpn work
   # Other tools
   borgbackup
   freecad
