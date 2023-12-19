@@ -62,6 +62,14 @@ in
     systemd-networkd-wait-online.enable = lib.mkForce false;
   };
 
+  # Support blutooth headset buttons
+  systemd.user.services.mpris-proxy = {
+    description = "Mpris proxy";
+    after = [ "network.target" "sound.target" ];
+    wantedBy = [ "default.target" ];
+    serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+  };
+
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
   
@@ -115,25 +123,15 @@ in
     xserver = {
       layout = "no";
       libinput.enable = true;
-      desktopManager.xterm.enable = false;
-      desktopManager.gnome.enable = true;
-      displayManager = {
-        defaultSession = "none+xmonad";
-        startx.enable = false;
-        lightdm = {
-          enable = true;
-          background = wallpaper;
-          greeters.gtk = {
-            enable = true;
-            theme.name = "Dracula";
-            iconTheme.name = "Papirus-Dark";
-          };
-        };
+      desktopManager = {
+        xterm.enable = false;
+        gnome.enable = true;
       };
-      xrandrHeads = [ { # set primary monitor to built-in monitor 
-        output = "eDP-1";
-        primary = true; 
-      } ];
+      displayManager = {
+        startx.enable = false;
+        gdm.enable = true;
+	defaultSession = "gnome";
+      };
     };
   };
 
@@ -145,8 +143,15 @@ in
   };
   
   hardware = {
-    pulseaudio.enable = false;
-    bluetooth.enable = true;
+    pulseaudio = {
+      enable = false;
+      package = pkgs.pulseaudioFull;
+    };
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings.General.Enable = "Source,Sink,Media,Socket";
+    };
   };
 
   # rtkit for PipeWire
@@ -170,6 +175,7 @@ in
   nixpkgs.config = {
     permittedInsecurePackages = [ 
       "electron-24.8.6"
+      "electron-25.9.0"
       "teams-1.5.00.23861"
       "zotero-6.0.26"
     ];

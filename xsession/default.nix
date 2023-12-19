@@ -1,29 +1,12 @@
 pkgs:
 
 let 
-  myPolybar = pkgs.polybar.override {
-      alsaSupport  = true;
-      pulseSupport = true;
-  };
-  myThunarPlugins = with pkgs.xfce; [ 
-    thunar-archive-plugin
-    thunar-volman
-  ];
   customFonts = pkgs.nerdfonts.override {
     fonts = [
       "JetBrainsMono"
       "Iosevka"
     ];
   };
-  notify-app-path = "${pkgs.xfce.xfce4-notifyd}/lib/xfce4/notifyd/xfce4-notifyd";
-  polybar-config = import ./polybar/config-file.nix;
-  xmonad-config = pkgs.writeTextFile { 
-     name = "xmonad.hs"; 
-     text = (builtins.replaceStrings
-       [ "POLYBAR-CONFIG"    "NOTIFY-APP"   ] 
-       [ "${polybar-config}" "${notify-app-path}"]
-       (builtins.readFile ./xmonad/xmonad.hs));
-    };
 in
 {
   fonts.fonts = with pkgs; [
@@ -41,16 +24,12 @@ in
     gtk2
     gtk3
     gtk4
-    dracula-theme
-    papirus-icon-theme
 
     libnotify
     xdg-user-dirs
     lightlocker
     pavucontrol
     networkmanagerapplet
-    dmenu
-    (rofi.override { plugins = [ rofi-calc ]; })
     wmname
     feh
     brightnessctl
@@ -58,32 +37,11 @@ in
     mupdf
     gnome.gnome-disk-utility
     gnome.file-roller
+    gnome.gnome-tweaks
     system-config-printer
     lxqt.lxqt-policykit
 
-    # xfce
-    (thunar.override { thunarPlugins = myThunarPlugins; })
-    xfce4-power-manager
-    xfce4-screenshooter
-    xfce4-settings
-    xfce4-taskmanager
-    xfce4-notifyd
-    xfconf
-
-    # polybar stuff
-    myPolybar
-    picom
-    dunst
-    playerctl
     (callPackage ../packages/ideapad-cm {})
-    (callPackage ./polybar/polybar-scripts.nix {})
-  ];
-
-  environment.pathsToLink = [
-    "/share/xfce4"
-    "/lib/xfce4"
-    "/share/gtksourceview-3.0"
-    "/share/gtksourceview-4.0"
   ];
 
   services = {
@@ -119,11 +77,6 @@ in
         };
       };
       
-      windowManager.xmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-        config = xmonad-config;
-      };
       gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
     };
     tumbler.enable = true;
@@ -135,9 +88,4 @@ in
 
   # Shell integration for VTE terminals
   programs.bash.vteIntegration = true;
-
-  # Systemd services
-  systemd.packages = with pkgs.xfce; [
-    (thunar.override { thunarPlugins = myThunarPlugins; })
-  ];
 }

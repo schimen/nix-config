@@ -104,7 +104,7 @@ in
 
 	# Enable full gvfs support
 	gvfs = {
-		enable = true;
+	    enable = true;
 		package = lib.mkForce pkgs.gnome3.gvfs;
 	};
 
@@ -117,21 +117,14 @@ in
 	};
 
 	xserver.layout = "no";
-	xserver.desktopManager.xterm.enable = false;
-	xserver.desktopManager.gnome.enable = true;
+	xserver.desktopManager = {
+	  xterm.enable = false;
+	  gnome.enable = true;
+	};
 	xserver.displayManager = {
-		defaultSession = "none+xmonad";
-		startx.enable = false;
-		lightdm = {
-	enable = true;
-	background = wallpaper;
-	greeters.gtk = {
-		enable = true;
-		theme.name = "Dracula";
-		iconTheme.name = "Papirus-Dark";
-	};
-		};
-	};
+	  defaultSession = "gnome";
+	  startx.enable = false;
+	  gdm.enable = true;
 	};
 
 	virtualisation = {
