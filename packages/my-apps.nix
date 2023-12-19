@@ -4,11 +4,11 @@ pkgs: unstable: with pkgs; [
   thunderbird
   spotify
   # Social
-  unstable.discord
-  teams
+  discord
+  teams-for-linux
   slack
   signal-desktop
-  unstable.zoom-us
+  zoom-us
   # School (tools)
   todoist-electron
   libreoffice
@@ -39,8 +39,7 @@ pkgs: unstable: with pkgs; [
   vlc
   gnome-network-displays
   minecraft
-  unstable.optifine
-  (callPackage ./pinball {})
+  optifine
   calibre
   # Wine for windows applications:
   wineWowPackages.stable

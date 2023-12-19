@@ -6,7 +6,6 @@ with pkgs; [
     aiofiles
     beautifulsoup4
     ipykernel
-    jupyterlab
     matplotlib
     numpy
     pandas
@@ -20,23 +19,19 @@ with pkgs; [
 
   # Haskell
   (ghc.withPackages(hp: with hp; [
-    JuicyPixels
     random
-    repa
-    JuicyPixels-repa
-    hmatrix
-    vector-algorithms
     xmonad
     xmonad-extras
-    matplotlib
     haskell-language-server
   ]))
 
   # Tools
   vscode-fhs
+  vim
   direnv
   qemu
   teamviewer
+  ngrok
   virt-manager
   socat
   bat
@@ -56,11 +51,8 @@ with pkgs; [
   teensy-loader-cli
   dtc
   # nRF
-  nrf-command-line-tools
-  nrfconnect
   nrfutil
   nrf5-sdk
-  segger-jlink
   # Avr
   pkgsCross.avr.buildPackages.binutils
   pkgsCross.avr.buildPackages.gcc
