@@ -135,9 +135,11 @@ in
     steam.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [ ltunify ] \
-    ++ basicPackages ++ myApps ++ developmentPackages;
+  environment.systemPackages = with pkgs; [ 
+      ltunify 
+    ] ++ basicPackages ++ myApps ++ developmentPackages;
   nixpkgs.config = {
+    allowUnfree = true;
     permittedInsecurePackages = [
       "electron-25.9.0"
     ];
