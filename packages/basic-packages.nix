@@ -3,6 +3,7 @@ pkgs: with pkgs; [
   neovim
   wget
   unzip
+  pciutils
   usbutils
   git
   neofetch # of course :)

@@ -3,44 +3,44 @@ pkgs: unstable: with pkgs; [
   firefox
   thunderbird
   spotify
+
   # Social
   discord
-  teams-for-linux
   slack
   signal-desktop
-  zoom-us
+
   # School (tools)
   todoist-electron
   libreoffice
-  gnuradio
   texlive.combined.scheme-basic
   gummi
   zotero
-  kicad
-  drawio
-  unstable.obsidian
+  kicad-small
+  obsidian
   qalculate-gtk
-  geogebra6
-  (callPackage ./openconnect-sso {}) # program to make ntnu vpn work
+
   # Other tools
   borgbackup
   freecad
+  povray # Render for freecad
   blender
   audacity
   reaper
-  povray # Render for freecad
+  elektroid
   cura
   darktable
   gimp-with-plugins
-  krita
   transmission-gtk
   realvnc-vnc-viewer
+
   # Entertainment
   vlc
-  gnome-network-displays
-  minecraft
-  optifine
   calibre
+
   # Wine for windows applications:
   wineWowPackages.stable
+
+  # Gnome settings
+  gnome.dconf-editor
+  gnome.gnome-tweaks
 ]

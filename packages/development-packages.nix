@@ -6,9 +6,12 @@ with pkgs; [
     aiofiles
     beautifulsoup4
     ipykernel
+    jupyterlab
     matplotlib
     numpy
+    scikit-learn
     pandas
+    openpyxl
     pydub
     sympy
     scipy
@@ -17,52 +20,33 @@ with pkgs; [
   ] ++ (import ./west-packages.nix ps)
   ))
 
-  # Haskell
-  (ghc.withPackages(hp: with hp; [
-    random
-    xmonad
-    xmonad-extras
-    haskell-language-server
-  ]))
-
   # Tools
   vscode-fhs
   vim
   direnv
-  qemu
   teamviewer
-  ngrok
-  virt-manager
   socat
+  arp-scan
   bat
   fd
   xclip
+  xorg.xhost
   pandoc
   ffmpeg
   p7zip
-  git-cola
-  kdiff3
 
   # Embedded
   cutecom
   pulseview
   arduino
   openocd
-  teensy-loader-cli
   dtc
-  # nRF
-  nrfutil
-  nrf5-sdk
-  # Avr
-  pkgsCross.avr.buildPackages.binutils
-  pkgsCross.avr.buildPackages.gcc
-  avrdude
 
   # C/C++
   gcc
   gcc-arm-embedded
   gnumake
-  unstable.cmake
+  cmake
   ninja
   clang
   clang-tools

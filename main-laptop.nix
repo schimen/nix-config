@@ -5,10 +5,6 @@ let
   unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
   myApps = import ./packages/my-apps.nix pkgs unstable;
   developmentPackages = import ./packages/development-packages.nix pkgs unstable;
-  wallpaper = pkgs.fetchurl {
-    url = "https://i.redd.it/ni1r1agwtrh71.png";
-    sha256 = "00sg8mn6xdiqdsc1679xx0am3zf58fyj1c3l731imaypgmahkxj2";
-  };
 in 
 {
   imports =
@@ -18,6 +14,7 @@ in
     ];
   
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
     plymouth = {
       enable = true;
     };
@@ -47,7 +44,6 @@ in
     interfaces.wlp0s20f3.useDHCP = true; # wifi
     networkmanager = {
       enable = true;
-      #dhcp = "dhcpcd"; # because of eduroam
       plugins = with pkgs; [
         networkmanager-openvpn
         networkmanager-openconnect
@@ -55,19 +51,6 @@ in
     };
     # Samba discovery of machines and shares may need the firewall to be tuned (https://nixos.wiki/wiki/Samba)
     firewall.extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
-  };
-
-  systemd.services = { # Temporary solution before nixpkgs issue #180175 is resolved
-    NetworkManager-wait-online.enable = lib.mkForce false;
-    systemd-networkd-wait-online.enable = lib.mkForce false;
-  };
-
-  # Support blutooth headset buttons
-  systemd.user.services.mpris-proxy = {
-    description = "Mpris proxy";
-    after = [ "network.target" "sound.target" ];
-    wantedBy = [ "default.target" ];
-    serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
   };
 
   # Set your time zone.
@@ -101,12 +84,6 @@ in
     # Enable blueman
     blueman.enable = true;   
 
-    # Enable full gvfs support
-    gvfs = {
-      enable = true;
-      package = lib.mkForce pkgs.gnome.gvfs;
-    };
-
     # Rule for full control of usb
     udev.extraRules = ''
       SUBSYSTEM=="usb", MODE="0666", GROUP="users"
@@ -121,6 +98,7 @@ in
     };
 
     xserver = {
+      enable = true;
       layout = "no";
       libinput.enable = true;
       desktopManager = {
@@ -143,49 +121,28 @@ in
   };
   
   hardware = {
-    pulseaudio = {
-      enable = false;
-      package = pkgs.pulseaudioFull;
-    };
+    pulseaudio.enable = false;
     bluetooth = {
       enable = true;
       powerOnBoot = true;
-      settings.General.Enable = "Source,Sink,Media,Socket";
     };
   };
 
   # rtkit for PipeWire
   security.rtkit.enable = true;
 
-  qt = {
-    enable = true;
-    platformTheme = "gtk2";
-    style = "gtk2";
-  };
-
   programs = {
     tmux.enable = true;
     steam.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    (callPackage ./packages/ideapad-cm {}) # script for conservation mode
-  ] ++ basicPackages ++ myApps ++ developmentPackages;
+  environment.systemPackages = basicPackages ++ developmentPackages ++ myApps ;
 
   nixpkgs.config = {
-    permittedInsecurePackages = [ 
-      "electron-24.8.6"
-      "electron-25.9.0"
-      "teams-1.5.00.23861"
-      "zotero-6.0.26"
-    ];
     allowUnfree = true;
-    segger-jlink.acceptLicense = true;
-    packageOverrides = pkgs: { unstable = unstable; };
-    allowUnsupportedSystem = true;
+    permittedInsecurePackages = [ 
+      "electron-25.9.0"
+    ];
   };
-  nixpkgs.overlays = [
-    (import ./overlays/realvnc.nix)
-  ];
 }
 

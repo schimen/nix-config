@@ -5,10 +5,6 @@ let
   unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
   myApps = import ./packages/my-apps.nix pkgs unstable;
   developmentPackages = import ./packages/development-packages.nix pkgs unstable;
-  wallpaper = pkgs.fetchurl {
-    url = "https://i.redd.it/ni1r1agwtrh71.png";
-    sha256 = "00sg8mn6xdiqdsc1679xx0am3zf58fyj1c3l731imaypgmahkxj2";
-  };
 in
 {
   imports =
@@ -64,11 +60,6 @@ in
     };
   };
 
-  systemd.services = { # Temporary solution before nixpkgs issue #180175 is resolved
-    NetworkManager-wait-online.enable = lib.mkForce false;
-    systemd-networkd-wait-online.enable = lib.mkForce false;
-  };
-
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
 
@@ -102,12 +93,6 @@ in
     # Enable teamviewer
     teamviewer.enable = true;
 
-    # Enable full gvfs support
-    gvfs = {
-      enable = true;
-      package = lib.mkForce pkgs.gnome3.gvfs;
-    };
-
     # PipeWire
     pipewire = {
       enable = true;
@@ -116,15 +101,18 @@ in
       pulse.enable = true;
     };
 
-    xserver.layout = "no";
-    xserver.desktopManager = {
-      xterm.enable = false;
-      gnome.enable = true;
-    };
-    xserver.displayManager = {
-      defaultSession = "gnome";
-      startx.enable = false;
-      gdm.enable = true;
+    xserver = {
+      enable = true;
+      layout = "no";
+      desktopManager = {
+        xterm.enable = false;
+        gnome.enable = true;
+      };
+      displayManager = {
+        startx.enable = false;
+        gdm.enable = true;
+        defaultSession = "gnome";
+      };
     };
   };
 
@@ -142,32 +130,17 @@ in
   # rtkit for PipeWire
   security.rtkit.enable = true;
 
-  qt = {
-    enable = true;
-    platformTheme = "gtk2";
-    style = "gtk2";
-  };
-
   programs = {
     tmux.enable = true;
     steam.enable = true;
-    dconf.enable = true;
   };
 
-  environment.systemPackages =
-    [ pkgs.ltunify ] ++ basicPackages ++ myApps ++ developmentPackages;
+  environment.systemPackages = with pkgs; [ ltunify ] \
+    ++ basicPackages ++ myApps ++ developmentPackages;
   nixpkgs.config = {
     permittedInsecurePackages = [
-      "electron-24.8.6"
-      "teams-1.5.00.23861"
-      "zotero-6.0.26"
+      "electron-25.9.0"
     ];
-    allowUnfree = true;
-    segger-jlink.acceptLicense = true;
-    packageOverrides = pkgs: { unstable = unstable; }; 
   };
-  nixpkgs.overlays = [
-    (import ./overlays/realvnc.nix)
-  ];
 }
 

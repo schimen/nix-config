@@ -1,9 +1,5 @@
 { config, pkgs, ... }:
 {
-  imports = [
-    (import ../xsession pkgs)
-  ];
-
   users.users.simen = {
     isNormalUser = true;
     extraGroups = [
