@@ -20,6 +20,8 @@ with pkgs; [
   ] ++ (import ./west-packages.nix ps)
   ))
 
+  nodejs
+
   # Tools
   vscode-fhs
   vim

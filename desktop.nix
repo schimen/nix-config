@@ -11,6 +11,7 @@ in
     [ <home-manager/nixos>
       ./home/simen.nix
       ./home/jamila.nix
+      ./media-server.nix
     ];
   
   boot = {
@@ -76,7 +77,10 @@ in
     printing.enable = true;
 
     # Enable ssh
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings.X11Forwarding = true;
+    };
 
     # Enable mDNS
     avahi.enable = true;
@@ -89,9 +93,6 @@ in
     
     # Enable onedrive
     onedrive.enable = true;
-
-    # Enable teamviewer
-    teamviewer.enable = true;
 
     # PipeWire
     pipewire = {
@@ -110,7 +111,10 @@ in
       };
       displayManager = {
         startx.enable = false;
-        gdm.enable = true;
+        gdm = {
+	  enable = true;
+	  autoSuspend = false;
+	};
         defaultSession = "gnome";
       };
     };
@@ -125,6 +129,7 @@ in
   hardware = {
     pulseaudio.enable = false;
     bluetooth.enable = true;
+    enableAllFirmware = true;
   };
 
   # rtkit for PipeWire
@@ -137,6 +142,8 @@ in
 
   environment.systemPackages = with pkgs; [ 
       ltunify 
+      chromium
+      puppeteer-cli
     ] ++ basicPackages ++ myApps ++ developmentPackages;
   nixpkgs.config = {
     allowUnfree = true;
