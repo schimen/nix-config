@@ -17,6 +17,8 @@ with pkgs; [
     scipy
     requests
     tkinter
+    gphoto2
+    opencv4
   ] ++ (import ./west-packages.nix ps)
   ))
 
@@ -34,6 +36,8 @@ with pkgs; [
   xclip
   xorg.xhost
   pandoc
+  texliveSmall
+  plantuml
   ffmpeg
   p7zip
 
@@ -43,6 +47,7 @@ with pkgs; [
   arduino
   openocd
   dtc
+  rpi-imager
 
   # C/C++
   gcc

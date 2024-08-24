@@ -18,6 +18,7 @@ pkgs: unstable: with pkgs; [
   kicad-small
   obsidian
   qalculate-gtk
+  geogebra
 
   # Other tools
   borgbackup
@@ -32,6 +33,7 @@ pkgs: unstable: with pkgs; [
   gimp-with-plugins
   transmission-gtk
   realvnc-vnc-viewer
+  protonvpn-gui
 
   # Entertainment
   vlc
