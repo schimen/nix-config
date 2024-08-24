@@ -40,6 +40,7 @@ with pkgs; [
   plantuml
   ffmpeg
   p7zip
+  ngrok
 
   # Embedded
   cutecom

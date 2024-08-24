@@ -20,7 +20,9 @@ in
     };
     supportedFilesystems = [                                                                 
       "ntfs"                                                                                 
+      "apfs"
     ];
+    kernelModules = [ "i2c-dev" ];
     loader = {
       timeout = 5;
       systemd-boot.enable = false;
@@ -118,6 +120,7 @@ in
         defaultSession = "gnome";
       };
     };
+    hardware.openrgb.enable = true;
   };
 
   virtualisation = {
@@ -129,6 +132,12 @@ in
   hardware = {
     pulseaudio.enable = false;
     bluetooth.enable = true;
+    logitech.wireless = {
+      enable = true;
+      enableGraphical = true;
+    };
+    cpu.intel.updateMicrocode = true;
+    i2c.enable = true;
     enableAllFirmware = true;
   };
 
@@ -141,9 +150,9 @@ in
   };
 
   environment.systemPackages = with pkgs; [ 
+      apfs-fuse
       ltunify 
-      chromium
-      puppeteer-cli
+      openrgb
     ] ++ basicPackages ++ myApps ++ developmentPackages;
   nixpkgs.config = {
     allowUnfree = true;

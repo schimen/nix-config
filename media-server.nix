@@ -57,6 +57,15 @@
           "create mask" = "0644";
           "directory mask" = "0755";
         };
+        Music = {
+          path = "/run/media/simen/SimenBackup/Musikk";
+          browseable = "yes";
+          "writeable" = "yes";
+          "read only" = "no";
+          "guest ok" = "yes";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+        };
       };
     };
     samba-wsdd = {
