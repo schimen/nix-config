@@ -34,6 +34,7 @@ pkgs: unstable: with pkgs; [
   gimp-with-plugins
   transmission-gtk
   realvnc-vnc-viewer
+  remmina
   protonvpn-gui
   inkscape
 

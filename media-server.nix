@@ -80,11 +80,20 @@
       openFirewall = true;
       user = "simen";
     };
+
+    # Remote desktop to access the server
+    xrdp = {
+      enable = true;
+      defaultWindowManager = "gnome-remote-desktop";
+      openFirewall = true;
+    };
   };
 
-  # Add jellyfin packages
   environment.systemPackages = with pkgs; [
+    # Jellyfin packages
     jellyfin jellyfin-web jellyfin-ffmpeg
+    # Remote desktop package
+    gnome.gnome-remote-desktop
   ];
 
   # Enable VA-API (see https://nixos.wiki/wiki/Jellyfin)
