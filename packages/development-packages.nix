@@ -36,6 +36,7 @@ with pkgs; [
   pandoc
   ffmpeg
   p7zip
+  ngrok
 
   # Embedded
   cutecom

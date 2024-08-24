@@ -29,9 +29,11 @@ pkgs: unstable: with pkgs; [
   elektroid
   cura
   darktable
+  shotwell
   gimp-with-plugins
   transmission-gtk
   realvnc-vnc-viewer
+  inkscape
 
   # Entertainment
   vlc
