@@ -49,8 +49,6 @@ in
         networkmanager-openconnect
       ];
     };
-    # Samba discovery of machines and shares may need the firewall to be tuned (https://nixos.wiki/wiki/Samba)
-    firewall.extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
   };
 
   # Set your time zone.
@@ -71,7 +69,7 @@ in
     # Avahi settings for printing
     avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
       openFirewall = true;
     };
 
@@ -97,10 +95,11 @@ in
       pulse.enable = true;
     };
 
+    libinput.enable = true;
+    displayManager.defaultSession = "gnome";
     xserver = {
       enable = true;
-      layout = "no";
-      libinput.enable = true;
+      xkb.layout = "no";
       desktopManager = {
         xterm.enable = false;
         gnome.enable = true;
@@ -108,7 +107,6 @@ in
       displayManager = {
         startx.enable = false;
         gdm.enable = true;
-	defaultSession = "gnome";
       };
     };
   };
