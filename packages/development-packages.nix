@@ -44,6 +44,7 @@ with pkgs; [
 
   # Embedded
   cutecom
+  picocom
   pulseview
   arduino
   openocd

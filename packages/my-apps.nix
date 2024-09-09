@@ -33,7 +33,6 @@ pkgs: unstable: with pkgs; [
   shotwell
   gimp-with-plugins
   transmission-gtk
-  realvnc-vnc-viewer
   remmina
   protonvpn-gui
   inkscape
