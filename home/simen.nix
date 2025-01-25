@@ -19,12 +19,12 @@
       };
       bash = {
         enable = true;
-	shellAliases = {
-	  "clip" = "xclip -selection clipboard";
+        shellAliases = {
+          "clip" = "xclip -selection clipboard";
           "ls"   = "ls --color=auto";
           "grep" = "grep --color=auto";
         };
-	bashrcExtra = ''
+        bashrcExtra = ''
           eval "$(direnv hook bash)"
           PS1="\n\[\033[1;32m\]\u@\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[00m\]\$ "
         '';

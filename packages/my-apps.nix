@@ -1,6 +1,5 @@
 pkgs: unstable: with pkgs; [
   # Apps
-  firefox
   thunderbird
   spotify
 
@@ -10,8 +9,6 @@ pkgs: unstable: with pkgs; [
   signal-desktop
 
   # School (tools)
-  todoist-electron
-  libreoffice
   texlive.combined.scheme-basic
   gummi
   zotero
@@ -28,23 +25,17 @@ pkgs: unstable: with pkgs; [
   audacity
   reaper
   elektroid
-  cura
   darktable
   shotwell
   gimp-with-plugins
-  transmission-gtk
+  transmission_4-gtk
   remmina
   protonvpn-gui
   inkscape
 
-  # Entertainment
-  vlc
+  # Media
   calibre
 
   # Wine for windows applications:
   wineWowPackages.stable
-
-  # Gnome settings
-  gnome.dconf-editor
-  gnome.gnome-tweaks
 ]

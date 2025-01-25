@@ -41,6 +41,9 @@ with pkgs; [
   ffmpeg
   p7zip
   ngrok
+  zerotierone
+  heroku
+  postgresql
 
   # Embedded
   cutecom
