@@ -1,20 +1,12 @@
 { config, pkgs, lib, ... }:
 
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.11.tar.gz";
-  unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-  unstable = import unstableTarball { config = config.nixpkgs.config; };
-  nurTarball = fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz";
   basicPackages = import ./packages/basic-packages.nix pkgs;
-
-  wallpaper = pkgs.fetchurl {
-    url = "https://i.redd.it/ni1r1agwtrh71.png";
-    sha256 = "00sg8mn6xdiqdsc1679xx0am3zf58fyj1c3l731imaypgmahkxj2";
-  };
+  desktopBasics = import ./packages/desktop-basics.nix pkgs;
 in 
 {
   imports =
-    [ "${home-manager}/nixos"
+    [ <home-manager/nixos>
       ./home/simen.nix
     ];
 
@@ -72,53 +64,37 @@ in
     # Enable CUPS to print documents.
     printing.enable = true;
 
-    # Enable mDNS
-    avahi.enable = true;
-    avahi.nssmdns = true;
-
-    # Enable full gvfs support
-    gvfs = {
+    # Avahi settings for printing
+    avahi = {
       enable = true;
-      package = lib.mkForce pkgs.gnome.gvfs;
+      nssmdns4 = true;
+      openFirewall = true;
     };
-    xserver.desktopManager.xterm.enable = false;
-    xserver.layout = "no";
-    xserver.displayManager = {
-      defaultSession = "none+xmonad"; 
-      startx.enable = false;
-      lightdm = {
-        enable = true;
-        background = wallpaper;
-        greeters.gtk = {
-          enable = true;
-          theme.name = "Dracula";
-          iconTheme.name = "Papirus-Dark";
-        };
+
+    libinput.enable = true;
+    displayManager.defaultSession = "gnome";
+    xserver = {
+      enable = true;
+      xkb.layout = "no";
+      desktopManager = {
+        xterm.enable = false;
+        gnome.enable = true;
+      };
+      displayManager = {
+        startx.enable = false;
+        gdm.enable = true;
       };
     };
   };
 
   # Enable sound.
   sound.enable = true;
-
   hardware.pulseaudio.enable = true;
- 
-  qt5 = {
-    enable = true;
-    platformTheme = "gtk2";
-    style = "gtk2";
-  };
 
   programs.tmux.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    firefox
-    spotify
-  ] ++ basicPackages;
+  environment.systemPackages = with pkgs; basicPackages ++ desktopBasics;
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides = pkgs: { unstable = unstable; };
-  };
+  nixpkgs.config.allowUnfree = true;
 }
 
