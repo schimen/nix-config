@@ -1,8 +1,9 @@
 { config, pkgs, lib, options, ... }:
 
 let
-  basicPackages = import ./packages/basic-packages.nix pkgs;
   unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
+  basicPackages = import ./packages/basic-packages.nix pkgs;
+  desktopBasics = import ./packages/desktop-basics.nix pkgs;
   myApps = import ./packages/my-apps.nix pkgs unstable;
   developmentPackages = import ./packages/development-packages.nix pkgs unstable;
 in 
@@ -134,7 +135,7 @@ in
     steam.enable = true;
   };
 
-  environment.systemPackages = basicPackages ++ developmentPackages ++ myApps ;
+  environment.systemPackages = basicPackages ++ desktopBasics ++ developmentPackages ++ myApps;
 
   nixpkgs.config = {
     allowUnfree = true;
