@@ -7,59 +7,56 @@
       enable = true;
       securityType = "user";
       openFirewall = true;
-      extraConfig = ''
-        workgroup = WORKGROUP
-        server string = smbnix
-        netbios name = smbnix
-        security = user 
-        #use sendfile = yes
-        #max protocol = smb2
-        # note: localhost is the ipv6 localhost ::1
-        hosts allow = 192.168.0. 127.0.0.1 localhost
-        hosts deny = 0.0.0.0/0
-        guest account = nobody
-        map to guest = bad user
-      '';
-      shares = {
-        Movies = {
-          path = "/run/media/simen/SimenBackup/Filmer";
-          browseable = "yes";
+      settings = {
+        global = {
+          "workgroup" = "WORKGROUP";
+          "server string" = "smbnix";
+          "netbios name" = "smbnix";
+          "security" = "user";
+          "hosts allow" = "192.168.0. 127.0.0.1 localhost";
+          "hosts deny" = "0.0.0.0/0";
+          "guest account" = "nobody";
+          "map to guest" = "bad user";
+        };
+        "Movies" = {
+          "path" = "/run/media/simen/SimenBackup/Filmer";
+          "browseable" = "yes";
           "writeable" = "yes";
           "read only" = "no";
           "guest ok" = "yes";
           "create mask" = "0644";
           "directory mask" = "0755";
         };
-        Series = {
-          path = "/run/media/simen/SimenBackup/Serier";
-          browseable = "yes";
+        "Series" = {
+          "path" = "/run/media/simen/SimenBackup/Serier";
+          "browseable" = "yes";
           "writeable" = "yes";
           "read only" = "no";
           "guest ok" = "yes";
           "create mask" = "0644";
           "directory mask" = "0755";
         };
-        Backup = {
-          path = "/run/media/simen/SimenBackup/borg-backup";
-          browseable = "yes";
+        "Backup" = {
+          "path" = "/run/media/simen/SimenBackup/borg-backup";
+          "browseable" = "yes";
           "writeable" = "yes";
           "read only" = "no";
           "guest ok" = "no";
           "create mask" = "0644";
           "directory mask" = "0755";
         };
-        Images = {
-          path = "/run/media/simen/SimenBackup/Bilder";
-          browseable = "yes";
+        "Images" = {
+          "path" = "/run/media/simen/SimenBackup/Bilder";
+          "browseable" = "yes";
           "writeable" = "yes";
           "read only" = "no";
           "guest ok" = "yes";
           "create mask" = "0644";
           "directory mask" = "0755";
         };
-        Music = {
-          path = "/run/media/simen/SimenBackup/Musikk";
-          browseable = "yes";
+        "Music" = {
+          "path" = "/run/media/simen/SimenBackup/Musikk";
+          "browseable" = "yes";
           "writeable" = "yes";
           "read only" = "no";
           "guest ok" = "yes";
