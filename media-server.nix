@@ -84,8 +84,22 @@
     # Remote desktop to access the server
     xrdp = {
       enable = true;
-      defaultWindowManager = "gnome-remote-desktop";
+      defaultWindowManager = "xfce4-session";
       openFirewall = true;
+    };
+    # Gnome is already in use by logged in user, we use xfce instead :)
+    xserver = {
+      enable = true;
+      desktopManager.xfce.enable = true;
+    };
+
+
+    # ZeroTier to access server outside of local network
+    zerotierone = {
+      enable = true;
+      joinNetworks = [
+        ""
+      ];
     };
   };
 
@@ -94,6 +108,8 @@
     jellyfin jellyfin-web jellyfin-ffmpeg
     # Remote desktop package
     gnome.gnome-remote-desktop
+    # ZeroTier for access outside of local network
+    zerotierone
   ];
 
   # Enable VA-API (see https://nixos.wiki/wiki/Jellyfin)
@@ -109,6 +125,11 @@
       libvdpau-va-gl
       intel-compute-runtime
     ];
+  };
+
+  users.users.rdp-user = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" ];
   };
 }
 
