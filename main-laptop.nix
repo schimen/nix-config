@@ -32,6 +32,7 @@ in
         device = "nodev";
       };
     };
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
   
   networking = {
@@ -79,8 +80,13 @@ in
     # Enable teamviewer
     teamviewer.enable = true;
     
-    # Enable onedrive
-    onedrive.enable = true;
+    # Connect to zerotier network
+    zerotierone = {
+      enable = true;
+      joinNetworks = [
+        ""
+      ];
+    };
 
     # Enable blueman
     blueman.enable = true;   
@@ -145,5 +151,7 @@ in
       "electron-25.9.0"
     ];
   };
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
 }
 

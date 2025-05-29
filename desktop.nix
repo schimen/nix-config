@@ -96,9 +96,6 @@ in
       workstation = true;
     };
     
-    # Enable onedrive
-    onedrive.enable = true;
-
     # PipeWire
     pipewire = {
       enable = true;
@@ -163,5 +160,6 @@ in
       "electron-25.9.0"
     ];
   };
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }
 

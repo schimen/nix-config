@@ -32,6 +32,7 @@ pkgs: unstable: with pkgs; [
   remmina
   protonvpn-gui
   inkscape
+  sweethome3d.application
 
   # Media
   calibre

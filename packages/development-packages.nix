@@ -5,24 +5,21 @@ with pkgs; [
     aiohttp
     aiofiles
     beautifulsoup4
+    gphoto2
     ipykernel
     jupyterlab
     matplotlib
     numpy
-    scikit-learn
-    pandas
-    openpyxl
-    pydub
-    sympy
-    scipy
-    requests
-    tkinter
-    gphoto2
     opencv4
+    openpyxl
+    pandas
+    requests
+    scikit-learn
+    scipy
+    sympy
+    tkinter
   ] ++ (import ./west-packages.nix ps)
   ))
-
-  nodejs
 
   # Tools
   vscode-fhs
@@ -46,7 +43,6 @@ with pkgs; [
   postgresql
 
   # Embedded
-  cutecom
   picocom
   pulseview
   arduino
