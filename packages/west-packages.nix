@@ -25,7 +25,7 @@ ps: with ps; [
   # Extras
   pillow
   grpcio-tools
-  PyGithub
+  pygithub
   graphviz
   # Run test
   pyserial

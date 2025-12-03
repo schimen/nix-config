@@ -8,14 +8,16 @@
   };
 
   home-manager.users.simen = {
-    home.stateVersion = "22.11";
+    home.stateVersion = "25.11";
     home.keyboard.layout = "no";
     programs = {
       home-manager.enable = true;
       git = {
         enable = true;
-        userName = "schimen";
-        userEmail = "einesimen@gmail.com";
+        settings.user = {
+          name = "schimen";
+          email = "einesimen@gmail.com";
+        };
       };
       bash = {
         enable = true;
