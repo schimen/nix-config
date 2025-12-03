@@ -10,7 +10,6 @@ ps: with ps; [
   intelhex
   # Build test
   ply
-  gcovr
   coverage
   pytest
   mypy
