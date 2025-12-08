@@ -12,7 +12,7 @@
     programs.home-manager.enable = true;
   };
 
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   environment.systemPackages = with pkgs; [
     google-chrome

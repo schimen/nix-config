@@ -97,6 +97,7 @@ in
     '';
 
     # PipeWire
+    pulseaudio.enable = false;
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -105,18 +106,11 @@ in
     };
 
     libinput.enable = true;
-    displayManager.defaultSession = "gnome";
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
     xserver = {
       enable = true;
       xkb.layout = "no";
-      desktopManager = {
-        xterm.enable = false;
-        gnome.enable = true;
-      };
-      displayManager = {
-        startx.enable = false;
-        gdm.enable = true;
-      };
     };
   };
 
@@ -127,12 +121,9 @@ in
     libvirtd.enable = true;
   };
   
-  hardware = {
-    pulseaudio.enable = false;
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
   };
 
   # rtkit for PipeWire
