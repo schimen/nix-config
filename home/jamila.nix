@@ -4,6 +4,9 @@
   users.users.jamila = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "dialout" ];
+    packages = with pkgs; [
+      google-chrome
+    ];
   };
 
   home-manager.users.jamila = {
@@ -13,8 +16,4 @@
   };
 
   services.desktopManager.gnome.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    google-chrome
-  ];
 }

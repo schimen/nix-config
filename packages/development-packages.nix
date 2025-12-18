@@ -43,6 +43,7 @@ with pkgs; [
   zerotierone
   heroku
   postgresql
+  net-tools
 
   # Embedded
   picocom

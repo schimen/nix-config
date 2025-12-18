@@ -1,9 +1,12 @@
 pkgs: unstable: with pkgs; [
   # Social
-  thunderbird
   discord
   slack
   signal-desktop
+
+  # Office
+  teams-for-linux
+  thunderbird
 
   # 3d modeling
   sweethome3d.application

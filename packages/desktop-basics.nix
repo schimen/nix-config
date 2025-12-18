@@ -8,6 +8,7 @@ pkgs: with pkgs; [
 
   # Media
   vlc
+  easyeffects
 
   # Settings
   dconf-editor
