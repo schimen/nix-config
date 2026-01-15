@@ -5,7 +5,6 @@
     samba = {
       package = pkgs.samba4Full;
       enable = true;
-      securityType = "user";
       openFirewall = true;
       settings = {
         global = {
@@ -85,10 +84,8 @@
       openFirewall = true;
     };
     # Use Gnome for remote desktop
-    xserver = {
-      enable = true;
+    xserver.enable = true;
       desktopManager.gnome.enable = true;
-    };
     gnome.gnome-remote-desktop.enable = true;
 
     # Disable autologin to avoid session conflicts

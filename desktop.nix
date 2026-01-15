@@ -89,7 +89,7 @@ in
 
     # Enable mDNS
     avahi.enable = true;
-    avahi.nssmdns = true;
+    avahi.nssmdns4 = true;
     avahi.publish = {
       enable = true;
       addresses = true;
@@ -103,22 +103,16 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+    pulseaudio.enable = false;
 
+    desktopManager.gnome.enable = true;
+    displayManager.gdm = {
+      enable = true;
+      autoSuspend = false;
+    };
     xserver = {
       enable = true;
-      layout = "no";
-      desktopManager = {
-        xterm.enable = false;
-        gnome.enable = true;
-      };
-      displayManager = {
-        startx.enable = false;
-        gdm = {
-	  enable = true;
-	  autoSuspend = false;
-	};
-        defaultSession = "gnome";
-      };
+      xkb.layout = "no";
     };
     hardware.openrgb.enable = true;
   };
@@ -130,7 +124,6 @@ in
   };
 
   hardware = {
-    pulseaudio.enable = false;
     bluetooth.enable = true;
     logitech.wireless = {
       enable = true;
@@ -147,6 +140,7 @@ in
   programs = {
     tmux.enable = true;
     steam.enable = true;
+    virt-manager.enable = true;
   };
 
   environment.systemPackages = with pkgs; [ 
