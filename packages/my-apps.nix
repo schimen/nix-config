@@ -1,41 +1,51 @@
 pkgs: unstable: with pkgs; [
-  # Apps
-  thunderbird
-  spotify
-
   # Social
   discord
   slack
   signal-desktop
 
-  # School (tools)
+  # Office
+  teams-for-linux
+  thunderbird
+
+  # 3d modeling
+  sweethome3d.application
+  orca-slicer
+  blender
+  freecad
+  povray # Render for freecad
+
+  # Images
+  inkscape
+  gimp-with-plugins
+  shotwell
+  darktable
+
+  # Music
+  spotify
+  audacity
+  reaper
+
+  # Writing
+  calibre
   texlive.combined.scheme-basic
   gummi
   zotero
-  kicad-small
   obsidian
-  qalculate-gtk
-  geogebra
+
+  # Networking
+  geteduroam
+  protonvpn-gui
+
+  # Remote desktop
+  remmina
 
   # Other tools
   borgbackup
-  freecad
-  povray # Render for freecad
-  blender
-  audacity
-  reaper
-  elektroid
-  darktable
-  shotwell
-  gimp-with-plugins
   transmission_4-gtk
-  remmina
-  protonvpn-gui
-  inkscape
-  sweethome3d.application
-
-  # Media
-  calibre
+  qalculate-gtk
+  geogebra
+  kicad-small
 
   # Wine for windows applications:
   wineWowPackages.stable

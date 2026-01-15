@@ -5,6 +5,7 @@ with pkgs; [
     aiohttp
     aiofiles
     beautifulsoup4
+    cython
     gphoto2
     ipykernel
     jupyterlab
@@ -13,6 +14,7 @@ with pkgs; [
     opencv4
     openpyxl
     pandas
+    psycopg2
     requests
     scikit-learn
     scipy
@@ -41,6 +43,7 @@ with pkgs; [
   zerotierone
   heroku
   postgresql
+  net-tools
 
   # Embedded
   picocom

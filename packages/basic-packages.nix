@@ -5,6 +5,7 @@ pkgs: with pkgs; [
   unzip
   pciutils
   usbutils
+  lm_sensors
   git
   neofetch # of course :)
   killall

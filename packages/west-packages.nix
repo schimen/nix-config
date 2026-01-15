@@ -10,7 +10,6 @@ ps: with ps; [
   intelhex
   # Build test
   ply
-  gcovr
   coverage
   pytest
   mypy
@@ -26,7 +25,7 @@ ps: with ps; [
   # Extras
   pillow
   grpcio-tools
-  PyGithub
+  pygithub
   graphviz
   # Run test
   pyserial
