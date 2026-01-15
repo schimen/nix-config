@@ -81,14 +81,19 @@
     # Remote desktop to access the server
     xrdp = {
       enable = true;
-      defaultWindowManager = "xfce4-session";
+      defaultWindowManager = "${pkgs.gnome-session}/bin/gnome-session";
       openFirewall = true;
     };
-    # Gnome is already in use by logged in user, we use xfce instead :)
+    # Use Gnome for remote desktop
     xserver = {
       enable = true;
-      desktopManager.xfce.enable = true;
+      desktopManager.gnome.enable = true;
     };
+    gnome.gnome-remote-desktop.enable = true;
+
+    # Disable autologin to avoid session conflicts
+    displayManager.autoLogin.enable = false;
+    getty.autologinUser = null;
 
 
     # ZeroTier to access server outside of local network
@@ -104,7 +109,7 @@
     # Jellyfin packages
     jellyfin jellyfin-web jellyfin-ffmpeg
     # Remote desktop package
-    gnome.gnome-remote-desktop
+    gnome-remote-desktop
     # ZeroTier for access outside of local network
     zerotierone
   ];
