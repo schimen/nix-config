@@ -13,4 +13,8 @@ pkgs: with pkgs; [
   # Settings
   dconf-editor
   gnome-tweaks
+
+  # Extensions
+  gnomeExtensions.auto-move-windows
+  gnomeExtensions.space-bar
 ]
