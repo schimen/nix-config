@@ -5,7 +5,6 @@
     samba = {
       package = pkgs.samba4Full;
       enable = true;
-      securityType = "user";
       openFirewall = true;
       settings = {
         global = {
@@ -81,14 +80,17 @@
     # Remote desktop to access the server
     xrdp = {
       enable = true;
-      defaultWindowManager = "xfce4-session";
+      defaultWindowManager = "${pkgs.gnome-session}/bin/gnome-session";
       openFirewall = true;
     };
-    # Gnome is already in use by logged in user, we use xfce instead :)
-    xserver = {
-      enable = true;
-      desktopManager.xfce.enable = true;
-    };
+    # Use Gnome for remote desktop
+    xserver.enable = true;
+      desktopManager.gnome.enable = true;
+    gnome.gnome-remote-desktop.enable = true;
+
+    # Disable autologin to avoid session conflicts
+    displayManager.autoLogin.enable = false;
+    getty.autologinUser = null;
 
 
     # ZeroTier to access server outside of local network
@@ -104,23 +106,16 @@
     # Jellyfin packages
     jellyfin jellyfin-web jellyfin-ffmpeg
     # Remote desktop package
-    gnome.gnome-remote-desktop
+    gnome-remote-desktop
     # ZeroTier for access outside of local network
     zerotierone
   ];
 
-  # Enable VA-API (see https://nixos.wiki/wiki/Jellyfin)
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-      intel-compute-runtime
+      intel-ocl
     ];
   };
 
