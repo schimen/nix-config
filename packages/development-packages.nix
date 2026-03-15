@@ -44,6 +44,7 @@ with pkgs; [
   heroku
   postgresql
   net-tools
+  dnsmasq
 
   # Embedded
   picocom
