@@ -45,7 +45,6 @@ in
       ];
     };
     firewall.enable = true;
-    nftables.enable = true;
   };
 
   # Set your time zone.

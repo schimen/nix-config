@@ -16,43 +16,38 @@ in
   
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    plymouth = {
-      enable = true;
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      timeout = 0; # Open bootloader list by pressing any key
     };
+    plymouth.enable = true;
     supportedFilesystems = [
       "ntfs"
     ];
-    loader = {
-      timeout = 1;
-      systemd-boot.enable = false;
-      efi.canTouchEfiVariables = true;
-      grub = {
-        enable = true;
-        efiSupport = true;
-        device = "nodev";
-      };
-    };
+    consoleLogLevel = 3;
+    initrd.verbose = false;
+    kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "udev.log_priority=3"
+      "rd.systemd.show_status=auto"
+    ];
     binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
-  
+
+  powerManagement.enable = true;
+
   networking = {
     hostName = "schimen-laptop-nixos"; # Define your hostname.
-  
-    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-    # Per-interface useDHCP will be mandatory in the future, so this generated config
-    # replicates the default behaviour.
-    useDHCP = false;
-    #interfaces.enp0s20f0u1u3.useDHCP = true; # ethernet
-    interfaces.wlp0s20f3.useDHCP = true; # wifi
     networkmanager = {
       enable = true;
       plugins = with pkgs; [
-        networkmanager-openvpn
         networkmanager-openconnect
       ];
     };
     firewall.enable = true;
-    nftables.enable = true;
   };
 
   # Set your time zone.
@@ -66,6 +61,13 @@ in
   };
 
   services = { # List services that you want to enable:
+    # Power management
+    power-profiles-daemon.enable = true;
+    logind.settings.Login = {
+      HandleLidSwitch = "suspend-then-hibernate";
+      HandlePowerKey = "hibernate";
+      HandlePowerKeyLongPress = "poweroff";
+    };
 
     # Enable CUPS to print documents.
     printing.enable = true;
@@ -74,22 +76,7 @@ in
     avahi = {
       enable = true;
       nssmdns4 = true;
-      openFirewall = true;
     };
-
-    # Enable teamviewer
-    teamviewer.enable = true;
-    
-    # Connect to zerotier network
-    zerotierone = {
-      enable = true;
-      joinNetworks = [
-        ""
-      ];
-    };
-
-    # Enable blueman
-    blueman.enable = true;   
 
     # Rule for full control of usb
     udev.extraRules = ''
@@ -114,23 +101,26 @@ in
     };
   };
 
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=30m
+    SuspendState=mem
+  '';
+
   # Enable docker
   virtualisation = {
     docker.enable = true;
     kvmgt.enable = true;
     libvirtd.enable = true;
   };
-  
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-  };
+
 
   # rtkit for PipeWire
   security.rtkit.enable = true;
 
   programs = {
     tmux.enable = true;
+    firefox.enable = true;
+    virt-manager.enable = true;
     steam.enable = true;
   };
 
@@ -138,11 +128,7 @@ in
 
   nixpkgs.config = {
     allowUnfree = true;
-    permittedInsecurePackages = [ 
-      "electron-25.9.0"
-    ];
   };
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
 }
 

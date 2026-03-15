@@ -31,6 +31,7 @@
         keyMode = "vi";
         clock24 = true;
         mouse = true;
+        terminal = "tmux-256color";
         extraConfig = ''
           set -s set-clipboard off
           set -s copy-command 'wl-copy'
