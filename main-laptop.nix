@@ -136,13 +136,6 @@ in
 
   environment.systemPackages = basicPackages ++ desktopBasics ++ developmentPackages ++ myApps;
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    permittedInsecurePackages = [ 
-      "electron-25.9.0"
-    ];
-  };
+  nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
 }
-

@@ -6,6 +6,7 @@ with pkgs; [
     aiofiles
     beautifulsoup4
     cython
+    geopandas
     gphoto2
     ipykernel
     jupyterlab
@@ -14,8 +15,11 @@ with pkgs; [
     opencv4
     openpyxl
     pandas
+    pyqt5
+    pyqt6
     psycopg2
     requests
+    scikit-image
     scikit-learn
     scipy
     sympy
@@ -27,23 +31,23 @@ with pkgs; [
   vscode-fhs
   vim
   direnv
-  teamviewer
   socat
   arp-scan
   bat
   fd
-  xclip
   xorg.xhost
   pandoc
   texliveSmall
   plantuml
+  graphviz
+  jre8
   ffmpeg
   p7zip
-  ngrok
   zerotierone
   heroku
   postgresql
   net-tools
+  opencode
 
   # Embedded
   picocom
@@ -54,11 +58,13 @@ with pkgs; [
   rpi-imager
 
   # C/C++
+  cmake
+  clang
+  clang-tools
   gcc
   gcc-arm-embedded
   gnumake
-  cmake
+  ncurses
   ninja
-  clang
-  clang-tools
+  opencv
 ]
