@@ -3,14 +3,15 @@ pkgs: with pkgs; [
   firefox
 
   # Office
-  libreoffice
   corefonts
+  libreoffice
 
   # Media
-  vlc
   easyeffects
+  vlc
 
-  # Settings
+  # System
+  clamav
   dconf-editor
   gnome-tweaks
 
