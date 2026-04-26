@@ -2,8 +2,8 @@ pkgs: unstable:
 with pkgs; [
   # Python
   (python3.withPackages(ps: with ps; [
-    aiohttp
     aiofiles
+    aiohttp
     beautifulsoup4
     cython
     geopandas
@@ -15,9 +15,9 @@ with pkgs; [
     opencv4
     openpyxl
     pandas
+    psycopg2
     pyqt5
     pyqt6
-    psycopg2
     requests
     scikit-image
     scikit-learn
@@ -28,33 +28,34 @@ with pkgs; [
   ))
 
   # Tools
-  vscode-fhs
-  vim
-  direnv
-  socat
   arp-scan
   bat
+  direnv
+  dnsmasq
   fd
-  xorg.xhost
-  pandoc
-  texliveSmall
-  plantuml
-  graphviz
-  jre8
   ffmpeg
-  p7zip
-  zerotierone
+  graphviz
   heroku
-  postgresql
+  jre8
   net-tools
   opencode
+  p7zip
+  pandoc
+  plantuml
+  postgresql
+  socat
+  texliveSmall
+  vim
+  vscode-fhs
+  xorg.xhost
+  zerotierone
 
   # Embedded
+  arduino
+  dtc
+  openocd
   picocom
   pulseview
-  arduino
-  openocd
-  dtc
   rpi-imager
 
   # C/C++
