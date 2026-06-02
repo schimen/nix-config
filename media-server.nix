@@ -100,6 +100,8 @@
         ""
       ];
     };
+    # Make sure mDNS is not stuck in zerotier
+    avahi.denyInterfaces = [ "ztbpacbqjs" ];
   };
 
   environment.systemPackages = with pkgs; [
