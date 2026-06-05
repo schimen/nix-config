@@ -47,8 +47,9 @@ with pkgs; [
   texliveSmall
   vim
   vscode-fhs
-  xorg.xhost
+  xhost
   zerotierone
+  wireshark
 
   # Embedded
   arduino
@@ -69,4 +70,5 @@ with pkgs; [
   ninja
   opencv
   readline
+  spdlog
 ]

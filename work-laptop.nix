@@ -15,7 +15,6 @@ in
     ];
   
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_19;
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -115,10 +114,10 @@ in
   };
 
   systemd.services.dlm.wantedBy = [ "multi-user.target" ];
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=30m
-    SuspendState=mem
-  '';
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "30m";
+    SuspendState = "mem";
+  };
 
   # Enable docker
   virtualisation = {
@@ -131,19 +130,23 @@ in
   # rtkit for PipeWire
   security.rtkit.enable = true;
 
+  fonts.enableDefaultPackages = true;
+  fonts.packages = with pkgs; [
+    open-sans
+  ];
+
   programs = {
     tmux.enable = true;
     firefox.enable = true;
     virt-manager.enable = true;
   };
 
-  environment.systemPackages = basicPackages ++ desktopBasics ++ developmentPackages ++ myApps ++ [ pkgs.displaylink pkgs.googleearth-pro  ftd3xx ];
+  environment.systemPackages = basicPackages ++ desktopBasics ++ developmentPackages ++ myApps ++ [ pkgs.displaylink pkgs.googleearth-pro pkgs.qgis ];
 
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [
-      "googleearth-pro-7.3.6.10201"
+      "googleearth-pro-7.3.7.1155"
     ];
   };
 }
-

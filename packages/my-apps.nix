@@ -24,7 +24,6 @@ pkgs: unstable: with pkgs; [
   # Music
   spotify
   audacity
-  reaper
 
   # Writing
   calibre
@@ -35,7 +34,7 @@ pkgs: unstable: with pkgs; [
 
   # Networking
   geteduroam
-  protonvpn-gui
+  proton-vpn
 
   # Remote desktop
   remmina
@@ -48,5 +47,5 @@ pkgs: unstable: with pkgs; [
   kicad-small
 
   # Wine for windows applications:
-  wineWowPackages.stable
+  wineWow64Packages.stable
 ]
