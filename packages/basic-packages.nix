@@ -1,13 +1,13 @@
 pkgs: with pkgs; [
-  screen
-  neovim
-  wget
-  unzip
-  pciutils
-  usbutils
-  lm_sensors
+  fastfetch
   git
-  neofetch # of course :)
-  killall
   htop
+  killall
+  lm_sensors
+  neovim
+  pciutils
+  screen
+  unzip
+  usbutils
+  wget
 ]
