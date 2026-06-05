@@ -62,4 +62,5 @@ with pkgs; [
   ninja
   clang
   clang-tools
+  readline
 ]
