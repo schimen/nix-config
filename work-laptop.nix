@@ -5,6 +5,7 @@ let
   basicPackages = import ./packages/basic-packages.nix pkgs;
   desktopBasics = import ./packages/desktop-basics.nix pkgs;
   myApps = import ./packages/my-apps.nix pkgs unstable;
+  ftd3xx = pkgs.callPackage ./packages/ftd3xx {};
   developmentPackages = import ./packages/development-packages.nix pkgs unstable;
 in 
 {
@@ -14,7 +15,7 @@ in
     ];
   
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_19;
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -35,7 +36,7 @@ in
   };
   
   powerManagement.enable = true;
-  
+
   networking = {
     hostName = "simen-laptop-ntnu"; # Define your hostname.
     networkmanager = {
@@ -65,12 +66,20 @@ in
       HandlePowerKeyLongPress = "poweroff";
     };
     
+    # Rule for full control of usb
+    udev.extraRules = ''
+      SUBSYSTEM=="usb", MODE="0666", GROUP="users"
+    '';
 
     # Enable CUPS to print documents.
     printing.enable = true;
 
     # Enable mDNS
-    avahi.enable = true;
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
 
     # PipeWire
     pulseaudio.enable = false;
@@ -89,6 +98,19 @@ in
       enable = true;
       xkb.layout = "no";
       videoDrivers = [ "displaylink" ];
+    };
+
+    # For executing non-standard shebangs
+    envfs.enable = true;
+
+    clamav = {
+      daemon.enable = true;
+      daemon.settings = {
+        OnAccessPrevention = true;
+        OnAccessIncludePath = "/home/simen/Downloads";
+      };
+      updater.enable = true;
+      clamonacc.enable = true;
     };
   };
 
@@ -115,8 +137,13 @@ in
     virt-manager.enable = true;
   };
 
-  environment.systemPackages = basicPackages ++ desktopBasics ++ developmentPackages ++ myApps ++ [ pkgs.displaylink ];
+  environment.systemPackages = basicPackages ++ desktopBasics ++ developmentPackages ++ myApps ++ [ pkgs.displaylink pkgs.googleearth-pro  ftd3xx ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "googleearth-pro-7.3.6.10201"
+    ];
+  };
 }
 

@@ -126,9 +126,6 @@ in
 
   environment.systemPackages = basicPackages ++ desktopBasics ++ developmentPackages ++ myApps;
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
+  nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }
-

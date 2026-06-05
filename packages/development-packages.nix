@@ -2,10 +2,11 @@ pkgs: unstable:
 with pkgs; [
   # Python
   (python3.withPackages(ps: with ps; [
-    aiohttp
     aiofiles
+    aiohttp
     beautifulsoup4
     cython
+    geopandas
     gphoto2
     ipykernel
     jupyterlab
@@ -15,7 +16,10 @@ with pkgs; [
     openpyxl
     pandas
     psycopg2
+    pyqt5
+    pyqt6
     requests
+    scikit-image
     scikit-learn
     scipy
     sympy
@@ -24,43 +28,45 @@ with pkgs; [
   ))
 
   # Tools
-  vscode-fhs
-  vim
-  direnv
-  teamviewer
-  socat
   arp-scan
   bat
-  fd
-  xclip
-  xorg.xhost
-  pandoc
-  texliveSmall
-  plantuml
-  ffmpeg
-  p7zip
-  ngrok
-  zerotierone
-  heroku
-  postgresql
-  net-tools
+  direnv
   dnsmasq
+  fd
+  ffmpeg
+  graphviz
+  heroku
+  jre8
+  net-tools
+  opencode
+  p7zip
+  pandoc
+  plantuml
+  postgresql
+  socat
+  texliveSmall
+  vim
+  vscode-fhs
+  xorg.xhost
+  zerotierone
 
   # Embedded
+  arduino
+  dtc
+  openocd
   picocom
   pulseview
-  arduino
-  openocd
-  dtc
   rpi-imager
 
   # C/C++
+  cmake
+  clang
+  clang-tools
   gcc
   gcc-arm-embedded
   gnumake
-  cmake
+  ncurses
   ninja
-  clang
-  clang-tools
+  opencv
   readline
 ]

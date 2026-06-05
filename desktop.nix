@@ -62,11 +62,8 @@ in
         networkmanager-openconnect
       ];
     };
-    firewall = {
-      enable = true;
-      trustedInterfaces = [ "virbr0" ];
-    };
-    nftables.enable = false;
+    firewall.enable = true;
+    nftables.enable = true;
   };
 
   # Set your time zone.
