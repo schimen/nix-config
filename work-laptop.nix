@@ -31,6 +31,7 @@ in
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
     ];
+    extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
     binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
   
@@ -139,10 +140,12 @@ in
     tmux.enable = true;
     firefox.enable = true;
     virt-manager.enable = true;
+    nix-ld.enable = true;
   };
 
   environment.systemPackages = basicPackages ++ desktopBasics ++ developmentPackages ++ myApps ++ [ pkgs.displaylink pkgs.googleearth-pro pkgs.qgis ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [

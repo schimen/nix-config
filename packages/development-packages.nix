@@ -9,6 +9,7 @@ with pkgs; [
     geopandas
     gphoto2
     ipykernel
+    ipympl
     jupyterlab
     matplotlib
     numpy
