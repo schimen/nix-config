@@ -30,10 +30,7 @@ with pkgs; [
 
   # Tools
   arp-scan
-  bat
   direnv
-  dnsmasq
-  fd
   ffmpeg
   graphviz
   heroku

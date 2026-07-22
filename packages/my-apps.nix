@@ -9,7 +9,6 @@ pkgs: unstable: with pkgs; [
   thunderbird
 
   # 3d modeling
-  sweethome3d.application
   orca-slicer
   blender
   freecad
@@ -27,8 +26,6 @@ pkgs: unstable: with pkgs; [
 
   # Writing
   calibre
-  texlive.combined.scheme-basic
-  gummi
   zotero
   obsidian
 
