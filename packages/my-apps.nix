@@ -30,7 +30,6 @@ pkgs: unstable: with pkgs; [
   obsidian
 
   # Networking
-  geteduroam
   proton-vpn
 
   # Remote desktop
@@ -40,7 +39,6 @@ pkgs: unstable: with pkgs; [
   borgbackup
   transmission_4-gtk
   qalculate-gtk
-  geogebra
   kicad-small
 
   # Wine for windows applications:

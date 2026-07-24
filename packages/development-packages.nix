@@ -20,6 +20,7 @@ with pkgs; [
     pyqt5
     pyqt6
     requests
+    rasterio
     scikit-image
     scikit-learn
     scipy
@@ -42,7 +43,6 @@ with pkgs; [
   plantuml
   postgresql
   socat
-  texliveSmall
   vim
   vscode-fhs
   xhost

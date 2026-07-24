@@ -5,7 +5,7 @@ let
   basicPackages = import ./packages/basic-packages.nix pkgs;
   desktopBasics = import ./packages/desktop-basics.nix pkgs;
   myApps = import ./packages/my-apps.nix pkgs unstable;
-  ftd3xx = pkgs.callPackage ./packages/ftd3xx {};
+  academicPackages = import ./packages/academic-packages.nix pkgs unstable;
   developmentPackages = import ./packages/development-packages.nix pkgs unstable;
 in 
 {
@@ -143,7 +143,7 @@ in
     nix-ld.enable = true;
   };
 
-  environment.systemPackages = basicPackages ++ desktopBasics ++ developmentPackages ++ myApps ++ [ pkgs.displaylink pkgs.googleearth-pro pkgs.qgis ];
+  environment.systemPackages = basicPackages ++ desktopBasics ++ developmentPackages ++ myApps ++ academicPackages ++ [ pkgs.displaylink ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config = {
